@@ -1,0 +1,16 @@
+* {
+  outline-color: $color-border__element-outline;
+}
+
+html, body, #app {
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 95%;
+  background-color: $color-background__global;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
