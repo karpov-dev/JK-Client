@@ -37,7 +37,7 @@ export default {
     },
 
     initSelectedTheme() {
-      const themeName = store.getters["storage/getTheme"];
+      const themeName = store.getters["storage/getSelectedThemeName"];
       const switcher_radios = document.querySelectorAll('.switcher__radio');
 
       switcher_radios.forEach(switcher_radio => {
