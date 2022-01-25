@@ -1,13 +1,11 @@
-* {
-  outline-color: $color-border__element-outline;
-}
+$--path__assets: '~@/assets/icons/';
 
 html, body, #app {
+  background-color: var(--color-background__global);
   min-height: 100vh;
   margin: 0;
   font-family: 'Comfortaa', sans-serif;
   font-size: 95%;
-  background-color: $color-background__global;
 }
 
 body {
