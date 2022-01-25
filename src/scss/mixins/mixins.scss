@@ -4,10 +4,15 @@
   appearance: $property;
 }
 
-@mixin background-contain-no-repeat($background-path) {
+@mixin background-img__contain-no-repeat() {
   background: {
-    image: url($background-path);
     size: contain;
     repeat: no-repeat;
   }
+}
+
+@mixin use-svg($name) {
+  background: {
+    image: url($--path__assets + '/fi-rr-' + $name + '.svg');
+  };
 }
