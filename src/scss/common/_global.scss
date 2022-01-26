@@ -1,12 +1,12 @@
 $--path__assets: '~@/assets/icons/';
 
 html, body, #app {
+  font-family: var(--font-famaly__comfortaa);
   background-color: var(--color-background__global);
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Comfortaa', sans-serif;
+  margin: var(--margin__ziro);
   font-size: 95%;
-  transition: background-color 0.3s linear;
+  min-height: 100vh;
+  transition: background-color 0.2s linear;
 }
 
 body {
