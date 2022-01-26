@@ -1,6 +1,5 @@
 <template>
   <button v-bind="$attrs"
-          class="button"
           :class="{ 'button__standard':isStandardVariant,
                     'button__next':isNextVariant,
                     'button__success':isSuccessVariant,
@@ -40,9 +39,9 @@
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
-  .button {
+  button {
     border-radius: 6px;
     padding: 9px 30px;
     transition: all .3s;
