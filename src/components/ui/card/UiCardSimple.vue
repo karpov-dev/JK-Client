@@ -1,5 +1,5 @@
 <template>
-  <base-card>
+  <ui-card-base>
     <template v-slot:header>
       <div class="card-simple__header">
         <div class="card-simple__header-title">
@@ -21,15 +21,15 @@
     <template v-slot:footer>
       <slot name="footer"></slot>
     </template>
-  </base-card>
+  </ui-card-base>
 </template>
 
 <script>
-  import BaseCard from "../base/BaseCard";
+  import UiCardBase from "./UiCardBase";
 
   export default {
-    name: "CardSimple",
-    components: {BaseCard},
+    name: "UiCardSimple",
+    components: {UiCardBase},
     props: {
       title: {
         type: String,

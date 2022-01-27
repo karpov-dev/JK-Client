@@ -1,16 +1,6 @@
 <template>
-  <div class="base-bard">
-    <div class="base-bard__header">
-      <slot name="header"></slot>
-    </div>
-
-    <div class="base-bard__content">
-      <slot></slot>
-    </div>
-
-    <div class="base-bard__footer">
-      <slot name="footer"></slot>
-    </div>
+  <div class="base-сard">
+    <slot></slot>
   </div>
 </template>
 
@@ -21,7 +11,7 @@
 </script>
 
 <style scoped lang="scss">
-  .base-bard {
+  .base-сard {
     position: relative;
     display: flex;
     flex-direction: column;
