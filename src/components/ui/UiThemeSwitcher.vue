@@ -63,7 +63,7 @@ export default {
     width: 3px;
     radius: 18px;
     style: solid;
-    color: var(--color-border__theme-swither);
+    color: var(--color-font);
   }
 }
 
@@ -84,7 +84,7 @@ export default {
   .switcher__radio--circle,
   .switcher__radio--moon,
   .switcher__radio--sun {
-    filter: invert(1);
+    filter: invert(0.9);
   }
 }
 

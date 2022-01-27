@@ -1,11 +1,54 @@
 [data-theme='dark'] {
-    --color-background__global: #424242;
-    --color-background__input: #c0c0c0;
-    --color-background__input-disabled: #9c9c9c;
-    --color-background__card: #c0c0c0;
+    /* Colors */
+    --color-accent__gray--000: #ffffff;                    /* accent text */
+    --color-accent__gray--100: rgba(255, 254, 254, 0.90);  /* text */
+    --color-accent__gray--200: rgba(255, 254, 254, 0.85);  /* secondary text */
+    --color-accent__gray--300: #808080;                    /* inputs */
+    --color-accent__gray--400: #6a6a6a;                    /* disabled inputs */
+    --color-accent__gray--500: #3d3d3d;                    /* buttons  */
+    --color-accent__gray--600: #29282b;                    /* cards, headers */
+    --color-accent__gray--700: #212022;                    /* background */
+    --color-accent__gray--800: #191919;                    /* under background */
+    --color-accent__gray--900: #000000;
+    --color-accent__blue--000: #5aa1c2;
+    --color-accent__green--000: #35a69b;
+    --color-accent__orange--000: #dd8100;
+    --color-accent__red--000: #b84c4b;
 
-    --color-border__block: white;
-    --color-border__theme-swither: var(--color-border__block);
+    /* Backgrounds */
+    --color-background__global: var(--color-accent__gray--700);
+    --color-background__card: var(--color-accent__gray--600);
+    --color-background__input: var(--color-accent__gray--300);
+    --color-background__input-disabled: var(--color-accent__gray--300);
 
-    --color-shadow__block: #282828;
+    /* Fonts */
+    --color-font__accent: var(--color-accent__gray--000);
+    --color-font: var(--color-accent__gray--100);
+    --color-font__secondary: var(--color-accent__gray--200);
+    --color-font-disabled: var(--color-accent__gray--400);
+
+    /* Shadows  */
+    --color-shadow: var(--color-accent__gray--800);
+
+    /* Buttons  */
+    --color-button__default: var(--color-accent__gray--500);
+    --color-button__default-border: var(--color-accent__gray--300);
+    --color-button__default-hover: var(--color-accent__gray--400);
+    --color-button__default-active: var(-caolor-accent__gray--300);
+
+    --color-button__common: var(--color-accent__blue--000);
+    --color-button__common-hover: var(--color-accent__blue--000);
+    --color-button__common-active: var(--color-accent__blue--000);
+
+    --color-button__success: var(--color-accent__green--000);
+    --color-button__success-hover: var(--color-accent__green--000);
+    --color-button__success-active: var(--color-accent__green--000);
+
+    --color-button__warning: var(--color-accent__orange--000);
+    --color-button__warning-hover: var(--color-accent__orange--000);
+    --color-button__warning-active: var(--color-accent__orange--000);
+
+    --color-button__danger: var(--color-accent__red--000);
+    --color-button__danger-hover: var(--color-accent__red--000);
+    --color-button__danger-active: var(--color-accent__red--000);
 }

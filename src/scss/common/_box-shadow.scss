@@ -1,13 +1,13 @@
 * {
-  --box-shadow__small-xxx: 1px 1px 1px var(--color-shadow__block);
-  --box-shadow__small-xx: 2px 2px 2px var(--color-shadow__block);
-  --box-shadow__small-x: 3px 3px 2px var(--color-shadow__block);
-  --box-shadow__small: 3px 3px 4px var(--color-shadow__block);
+  --box-shadow__small-xxx: 1px 1px 1px var(--color-shadow);
+  --box-shadow__small-xx: 2px 2px 2px var(--color-shadow);
+  --box-shadow__small-x: 3px 3px 2px var(--color-shadow);
+  --box-shadow__small: 3px 3px 4px var(--color-shadow);
 
-  --box-shadow__medium: 3px 3px 5px var(--color-shadow__block);
+  --box-shadow__medium: 4px 4px 5px var(--color-shadow);
 
-  --box-shadow__large: 6px 6px 6px var(--color-shadow__block);
-  --box-shadow__large-x: 8px 8px 8px var(--color-shadow__block);
-  --box-shadow__large-xx: 10px 10px 10px var(--color-shadow__block);
-  --box-shadow__large-xxx: 12px 12px 12px var(--color-shadow__block);
+  --box-shadow__large: 6px 6px 6px var(--color-shadow);
+  --box-shadow__large-x: 8px 8px 8px var(--color-shadow);
+  --box-shadow__large-xx: 10px 10px 10px var(--color-shadow);
+  --box-shadow__large-xxx: 12px 12px 12px var(--color-shadow);
 }

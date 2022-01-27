@@ -1,11 +1,20 @@
 [data-theme='light'], [data-theme='auto'] {
-    --color-background__global: #EDEEF0;
-    --color-background__input: #FFFFFF;
-    --color-background__input-disabled: #EFF4F6;
-    --color-background__card: #FFFFFF;
+    --color-accent__0: #000000;          /* accent text */
+    --color-accent__1: rgb(20, 20, 20);  /* text, shadow */
+    --color-accent__2: rgb(55, 55, 55);  /* secondary text */
+    --color-accent__3: #a8a8a8;          /* disabled input */
+    --color-accent__4: #edeef0;          /* background */
+    --color-accent__5: #f2f3f3;          /* input */
+    --color-accent__6: #ffffff;          /* card */
 
-    --color-border__block: black;
-    --color-border__theme-swither: var(--color-border__block);
+    --color-background__global: var(--color-accent__4);
+    --color-background__card: var(--color-accent__6);
+    --color-background__input: var(--color-accent__5);
+    --color-background__input-disabled: var(--color-accent__3);
 
-    --color-shadow__block: gray;
+    --color-font__accent: var(--color-accent__0);
+    --color-font: var(--color-accent__1);
+    --color-font__secondary: var(--color-accent__2);
+
+    --color-shadow: var(--color-accent__3);
 }
