@@ -31,10 +31,11 @@
 
 <style scoped>
   button {
+    margin: 0;
+    border: 0;
     position: relative;
     font-family: var(--font-famaly__comfortaa);
     padding: var(--padding__medium) var(--padding__large-xxx);
-    border: 0;
     border-radius: var(--border-radius__small);
   }
 
