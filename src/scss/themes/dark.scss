@@ -1,54 +1,31 @@
-[data-theme='dark'] {
-    /* Colors */
-    --color-accent__gray--000: #ffffff;                    /* accent text */
-    --color-accent__gray--100: rgba(255, 254, 254, 0.90);  /* text */
-    --color-accent__gray--200: rgba(255, 254, 254, 0.85);  /* secondary text */
-    --color-accent__gray--300: #808080;                    /* inputs */
-    --color-accent__gray--400: #6a6a6a;                    /* disabled inputs */
-    --color-accent__gray--500: #3d3d3d;                    /* buttons  */
-    --color-accent__gray--600: #29282b;                    /* cards, headers */
-    --color-accent__gray--700: #212022;                    /* background */
-    --color-accent__gray--800: #191919;                    /* under background */
-    --color-accent__gray--900: #000000;
-    --color-accent__blue--000: #5aa1c2;
-    --color-accent__green--000: #35a69b;
-    --color-accent__orange--000: #dd8100;
-    --color-accent__red--000: #b84c4b;
+@import "./colors.scss";
+@import "./filters.scss";
 
+[data-theme='dark'] {
     /* Backgrounds */
-    --color-background__global: var(--color-accent__gray--700);
-    --color-background__card: var(--color-accent__gray--600);
-    --color-background__input: var(--color-accent__gray--300);
-    --color-background__input-disabled: var(--color-accent__gray--300);
+    --color-background__global: var(--color-accent__gray--1400);
+    --color-background__card: var(--color-accent__gray--1300);
 
     /* Fonts */
     --color-font__accent: var(--color-accent__gray--000);
-    --color-font: var(--color-accent__gray--100);
-    --color-font__secondary: var(--color-accent__gray--200);
-    --color-font-disabled: var(--color-accent__gray--400);
+    --color-font__revert: var(--color-accent__gray--000);
+    --color-font: var(--color-accent__gray--400);
+    --color-font__secondary: var(--color-accent__gray--600);
+    --color-font-disabled: var(--color-accent__gray--800);
 
     /* Shadows  */
-    --color-shadow: var(--color-accent__gray--800);
+    --color-shadow: var(--color-accent__gray--1600);
 
-    /* Buttons  */
-    --color-button__default: var(--color-accent__gray--500);
-    --color-button__default-border: var(--color-accent__gray--300);
-    --color-button__default-hover: var(--color-accent__gray--400);
-    --color-button__default-active: var(-caolor-accent__gray--300);
+    /* Buttons */
+    --color-button-font__filled: var(--color-font);
+    --color-button__default-accent: var(--color-accent__gray--800);
+    --color-button__common-accent: var(--color-accent__blue--500);
+    --color-button__success-accent: var(--color-accent__green--500);
+    --color-button__warning-accent: var(--color-accent__orange--500);
+    --color-button__danger-accent: var(--color-accent__red--500);
 
-    --color-button__common: var(--color-accent__blue--000);
-    --color-button__common-hover: var(--color-accent__blue--000);
-    --color-button__common-active: var(--color-accent__blue--000);
-
-    --color-button__success: var(--color-accent__green--000);
-    --color-button__success-hover: var(--color-accent__green--000);
-    --color-button__success-active: var(--color-accent__green--000);
-
-    --color-button__warning: var(--color-accent__orange--000);
-    --color-button__warning-hover: var(--color-accent__orange--000);
-    --color-button__warning-active: var(--color-accent__orange--000);
-
-    --color-button__danger: var(--color-accent__red--000);
-    --color-button__danger-hover: var(--color-accent__red--000);
-    --color-button__danger-active: var(--color-accent__red--000);
+    /* Filters */
+    --brightness__disabled: var(--brightness__600);
+    --brightness__hover: var(--brightness__900);
+    --brightness__active: var(--brightness__800);
 }

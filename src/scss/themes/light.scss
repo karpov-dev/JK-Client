@@ -1,20 +1,31 @@
+@import "./colors.scss";
+@import "./filters.scss";
+
 [data-theme='light'], [data-theme='auto'] {
-    --color-accent__0: #000000;          /* accent text */
-    --color-accent__1: rgb(20, 20, 20);  /* text, shadow */
-    --color-accent__2: rgb(55, 55, 55);  /* secondary text */
-    --color-accent__3: #a8a8a8;          /* disabled input */
-    --color-accent__4: #edeef0;          /* background */
-    --color-accent__5: #f2f3f3;          /* input */
-    --color-accent__6: #ffffff;          /* card */
+    /* Backgrounds */
+    --color-background__global: var(--color-accent__gray--100);
+    --color-background__card: var(--color-accent__gray--000);
 
-    --color-background__global: var(--color-accent__4);
-    --color-background__card: var(--color-accent__6);
-    --color-background__input: var(--color-accent__5);
-    --color-background__input-disabled: var(--color-accent__3);
+    /* Fonts */
+    --color-font__accent: var(--color-accent__gray--1600);
+    --color-font__revert: var(--color-accent__gray--000);
+    --color-font: var(--color-accent__gray--1400);
+    --color-font__secondary: var(--color-accent__gray--600);
+    --color-font-disabled: var(--color-accent__gray--500);
 
-    --color-font__accent: var(--color-accent__0);
-    --color-font: var(--color-accent__1);
-    --color-font__secondary: var(--color-accent__2);
+    /* Shadows  */
+    --color-shadow: var(--color-accent__gray--800);
 
-    --color-shadow: var(--color-accent__3);
+    /* Buttons */
+    --color-button-font__filled: var(--color-font__revert);
+    --color-button__default-accent: var(--color-accent__gray--800);
+    --color-button__common-accent: var(--color-accent__blue--400);
+    --color-button__success-accent: var(--color-accent__green--400);
+    --color-button__warning-accent: var(--color-accent__orange--400);
+    --color-button__danger-accent: var(--color-accent__red--400);
+
+    /* Filters */
+    --brightness__disabled: var(--brightness__700);
+    --brightness__hover: var(--brightness__900);
+    --brightness__active: var(--brightness__800);
 }
