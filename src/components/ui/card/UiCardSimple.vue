@@ -16,7 +16,10 @@
       </div>
     </template>
 
-    <slot></slot>
+    <div class="card-simple__content">
+      <slot></slot>
+    </div>
+
 
     <template v-slot:footer>
       <slot name="footer"></slot>
@@ -57,6 +60,12 @@
     font-family: var(--font-famaly__viga);
     font-size: var(--font-size__large-x);
     padding-bottom: var(--margin__small-xxx);
+  }
+
+  .card-simple__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .card-simple__header-description {

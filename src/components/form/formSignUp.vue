@@ -5,7 +5,7 @@
       <a href="javascript:void(0);" @click="onSwitchToSignIn">Sign In</a>
     </template>
 
-    <div class="card">
+    <template v-slot:default>
       <div class="card__initials">
         <ui-input name="firstName"
                   title="First Name"
@@ -40,7 +40,7 @@
         <ui-button disabled variant="danger">Google (Soon)</ui-button>
         <ui-button disabled variant="common">Twitter (Soon)</ui-button>
       </div>
-    </div>
+    </template>
   </ui-card-simple>
 </template>
 
@@ -93,7 +93,7 @@
 </script>
 
 <style scoped>
-  .card, .card__initials, .card__sso-buttons {
+  .card__initials, .card__sso-buttons {
     display: flex;
     flex-direction: column;
     gap: 10px;

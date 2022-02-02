@@ -5,7 +5,7 @@
       <a href="javascript:void(0);" @click="onSwitchToSignUp">Sign Up</a>
     </template>
 
-    <div class="card__content">
+    <template v-slot:default>
       <ui-input name="email"
                 title="Email"
                 :value="email"
@@ -18,7 +18,7 @@
       ></ui-input>
 
       <ui-button variant="common" @click="onSignIn">Sign In</ui-button>
-    </div>
+    </template>
   </ui-card-simple>
 </template>
 
@@ -61,11 +61,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .card__content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-</style>
