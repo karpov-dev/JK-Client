@@ -12,6 +12,7 @@
     --color-font: var(--color-accent__gray--400);
     --color-font__secondary: var(--color-accent__gray--600);
     --color-font-disabled: var(--color-accent__gray--800);
+    --color-font-required: var(--color-accent__red--300);
 
     /* Shadows  */
     --color-shadow: var(--color-accent__gray--1600);
@@ -29,6 +30,7 @@
 
     /* Inputs */
     --color-input__background: var(--color-accent__gray--1200);
+    --color-input__border: var(--color-input__background);
 
     /* Filters */
     --brightness__disabled: var(--brightness__600);

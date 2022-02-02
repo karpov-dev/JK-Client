@@ -1,29 +1,47 @@
 <template>
-  <div class="input__container">
-    <slot name="before"></slot>
-    <input>
-    <slot name="after"></slot>
+  <div class="base-input__text">
+    <label v-if="title" :data-required="required">{{title}}</label>
+    <base-input v-bind="$attrs">
+      <template v-slot:after><slot name="after"></slot></template>
+      <template v-slot:before><slot name="before"></slot></template>
+    </base-input>
   </div>
 </template>
 
 <script>
+  import BaseInput from "./BaseInput";
+
   export default {
-    name: "BaseInputText"
+    name: "BaseInputText",
+    components: {BaseInput},
+    props: {
+      title: {
+        type: String,
+        default: null
+      },
+
+      required: {
+        type: Boolean,
+        default: false
+      }
+    }
   }
 </script>
 
 <style scoped>
-  input {
-    color: var(--color-font);
-    background: transparent;
-    border-width: 0;
+  .base-input__text {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    box-sizing: border-box;
-    padding: var(--padding__medium) var(--padding__large);
   }
 
-  .input__container {
-    border-radius: var(--border-radius__small);
-    background-color: var(--color-input__background);
+  label {
+    color: var(--color-font__secondary);
+    font-size: var(--font-size__small-x);
+  }
+
+  label[data-required='true']:before {
+    content: '*';
+    color: var(--color-font-required);
   }
 </style>

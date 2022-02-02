@@ -10,8 +10,9 @@
     --color-font__accent: var(--color-accent__gray--1600);
     --color-font__revert: var(--color-accent__gray--000);
     --color-font: var(--color-accent__gray--1400);
-    --color-font__secondary: var(--color-accent__gray--600);
+    --color-font__secondary: var(--color-accent__gray--1000);
     --color-font-disabled: var(--color-accent__gray--500);
+    --color-font-required: var(--color-accent__red--300);
 
     /* Shadows  */
     --color-shadow: var(--color-accent__gray--800);
@@ -26,6 +27,10 @@
     --color-button__success-accent: var(--color-accent__green--400);
     --color-button__warning-accent: var(--color-accent__orange--400);
     --color-button__danger-accent: var(--color-accent__red--400);
+
+    /* Inputs */
+    --color-input__background: var(--color-accent__gray--100);
+    --color-input__border: var(--color-accent__gray--600);
 
     /* Filters */
     --brightness__disabled: var(--brightness__700);

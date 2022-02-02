@@ -1,10 +1,11 @@
 import Home from "../views/Home";
+import Authorization from "../views/Authorization";
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "Authorization",
+    component: Authorization,
   },
   {
     path: "/about",
