@@ -37,7 +37,7 @@
   .form__grid--content {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     grid-column: 2;
     grid-row: 2;
     width: 100%;
