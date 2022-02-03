@@ -4,6 +4,10 @@ $--path__assets: '~@/assets/icons/';
   outline-color: var(--color-outline__global);
 }
 
+a {
+  color: var(--color-font__link);
+}
+
 html, body, #app {
   font-family: var(--font-famaly__comfortaa);
   background-color: var(--color-background__global);

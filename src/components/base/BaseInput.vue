@@ -1,9 +1,11 @@
 <template>
+  <slot name="over"></slot>
   <div class="input__container">
     <slot name="before"></slot>
     <input v-bind="$attrs">
     <slot name="after"></slot>
   </div>
+  <slot name="under"></slot>
 </template>
 
 <script>

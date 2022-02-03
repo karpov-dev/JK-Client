@@ -12,7 +12,8 @@
 
 <style scoped lang="scss">
   .button-group {
-    width: fit-content;
+    display: flex;
+    flex-direction: row;
   }
 
   .button-group::v-deep {

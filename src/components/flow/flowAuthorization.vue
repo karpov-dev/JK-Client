@@ -1,21 +1,24 @@
 <template>
-  <form-sign-in v-if="isSignIn"
+  <form-sign-in v-if="forms.isSignIn"
                 :email="user.email"
                 :password="user.password"
-                @tosignup="onToSignUp">
-  </form-sign-in>
-  <form-sign-up v-if="isSignUp"
+                @ontosignup="switchFormTo('signUp', $event)"
+                @onforgotpassword="$emit('onforgotpassword', this.user)"
+  ></form-sign-in>
+
+  <form-sign-up v-if="forms.isSignUp"
                 :first-name="user.firstName"
                 :last-name="user.lastName"
                 :email="user.email"
                 :password="user.password"
-                @tosignin="onToSignIn">
-  </form-sign-up>
+                @ontosignin="switchFormTo('signIn', $event)"
+  ></form-sign-up>
 </template>
 
 <script>
-  import FormSignIn from "./formSignIn";
-  import FormSignUp from "./formSignUp";
+  import FormSignIn from "../form/formSignIn";
+  import FormSignUp from "../form/formSignUp";
+  import {isComponent} from "../../services/component.service";
 
   const FORMS = {
     signIn: 'signIn',
@@ -23,10 +26,10 @@
   }
 
   export default {
-    name: "formSignInOrSignUp",
+    name: "flowAuthorization",
     components: {FormSignUp, FormSignIn},
     props: {
-      formName: {
+      form: {
         type: String,
         default: FORMS.signIn,
         validator(value) { return Object.values(FORMS).indexOf(value) !== -1; }
@@ -38,7 +41,7 @@
     },
     data() {
       return {
-        currentForm: this.formName,
+        currentForm: this.form,
         user: {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -48,19 +51,13 @@
       }
     },
     methods: {
-      onToSignUp(event) {
+      switchFormTo(formName, event) {
         Object.assign(this.user, event);
-        this.currentForm = FORMS.signUp;
-      },
-
-      onToSignIn(event) {
-        Object.assign(this.user, event);
-        this.currentForm = FORMS.signIn;
+        this.currentForm = FORMS[formName];
       }
     },
     computed: {
-      isSignIn() { return this.currentForm === FORMS.signIn; },
-      isSignUp() { return this.currentForm === FORMS.signUp; }
+      forms() { return isComponent(this.currentForm, FORMS)}
     }
   }
 </script>

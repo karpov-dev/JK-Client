@@ -1,5 +1,10 @@
 <template>
-  <component v-bind:is="getInputComponentName" v-bind="$attrs"></component>
+  <component v-bind:is="getInputComponentName" v-bind="$attrs">
+    <template v-slot:under><slot name="under"></slot></template>
+    <template v-slot:over><slot name="over"></slot></template>
+    <template v-slot:before><slot name="before"></slot></template>
+    <template v-slot:after><slot name="after"></slot></template>
+  </component>
 </template>
 
 <script>

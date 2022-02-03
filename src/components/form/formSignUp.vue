@@ -2,7 +2,7 @@
   <ui-card-simple title="Create Account">
     <template v-slot:card-description>
       Already have an Account?
-      <a href="javascript:void(0);" @click="onSwitchToSignIn">Sign In</a>
+      <a href="javascript:void(0);" @click="fireEvent('ontosignin')">Sign In</a>
     </template>
 
     <template v-slot:default>
@@ -25,21 +25,21 @@
                 :value="user.email"
                 @input="onUserInput"
       ></ui-input>
+
       <ui-input name="password"
                 title="Password"
-                type="password"
-                :value="user.password"
+                :value="password"
                 @input="onUserInput"
       ></ui-input>
 
       <ui-button variant="success" @click="onCreateAccount">Create</ui-button>
 
-      <ui-separator-line-text class="card__separator">OR</ui-separator-line-text>
+      <ui-separator-line-text>OR</ui-separator-line-text>
 
-      <div class="card__sso-buttons">
+      <ui-button-group>
         <ui-button disabled variant="danger">Google (Soon)</ui-button>
         <ui-button disabled variant="common">Twitter (Soon)</ui-button>
-      </div>
+      </ui-button-group>
     </template>
   </ui-card-simple>
 </template>
@@ -50,10 +50,12 @@
   import UiButton from "../ui/button/UiButton";
   import UiInputGroup from "../ui/input/UiInputGroup";
   import UiSeparatorLineText from '../ui/separator/UiSeparatorLineText';
+  import UiButtonGroup from "../ui/button/UiButtonGroup";
 
   export default {
     name: "formSignUp",
     components: {
+      UiButtonGroup,
       UiInputGroup,
       UiButton,
       UiInput,
@@ -82,11 +84,14 @@
       },
 
       onCreateAccount() {
-        this.$emit('signup', this.user);
+        this.fireEvent('create');
+
+        //TODO: Send request to create account
+        //TODO: Fire event "created"
       },
 
-      onSwitchToSignIn() {
-        this.$emit('tosignin', this.user);
+      fireEvent(eventName) {
+        this.$emit(eventName, this.user);
       }
     }
   }

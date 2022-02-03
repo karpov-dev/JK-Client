@@ -1,9 +1,15 @@
 <template>
   <div class="base-input__text">
-    <label v-if="title" :data-required="required">{{title}}</label>
     <base-input v-bind="$attrs">
+      <template v-slot:over>
+        <slot name="over">
+          <label v-if="title" :data-required="required">{{title}}</label>
+        </slot>
+      </template>
+
       <template v-slot:after><slot name="after"></slot></template>
       <template v-slot:before><slot name="before"></slot></template>
+      <template v-slot:under><slot name="under"></slot></template>
     </base-input>
   </div>
 </template>

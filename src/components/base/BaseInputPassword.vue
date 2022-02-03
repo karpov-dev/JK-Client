@@ -1,5 +1,10 @@
 <template>
-  <base-input-text v-bind="$attrs"></base-input-text>
+  <base-input-text v-bind="$attrs">
+    <template v-slot:under><slot name="under"></slot></template>
+    <template v-slot:over><slot name="over"></slot></template>
+    <template v-slot:before><slot name="before"></slot></template>
+    <template v-slot:after><slot name="after"></slot></template>
+  </base-input-text>
 </template>
 
 <script>
