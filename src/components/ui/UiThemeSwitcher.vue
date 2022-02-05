@@ -26,77 +26,78 @@
 </template>
 
 <script>
+  //TODO: Add trigger on theme theme change in local storage
+  //TODO: Add trigger to system theme change
+  import store from "../../store";
 
-import store from "../../store";
+  export default {
+    name: "UiThemeSwitcher",
+    methods: {
+      onChangeTheme(event) {
+        store.commit('storage/setTheme', event.target.value);
+      },
 
-export default {
-  name: "UiThemeSwitcher",
-  methods: {
-    onChangeTheme(event) {
-      store.commit('storage/setTheme', event.target.value);
+      initSelectedTheme() {
+        const themeName = store.getters["storage/getSelectedThemeName"];
+        const switcher_radios = document.querySelectorAll('.switcher__radio');
+
+        switcher_radios.forEach(switcher_radio => {
+          switcher_radio.checked = (themeName === switcher_radio.value);
+        });
+      }
     },
-
-    initSelectedTheme() {
-      const themeName = store.getters["storage/getSelectedThemeName"];
-      const switcher_radios = document.querySelectorAll('.switcher__radio');
-
-      switcher_radios.forEach(switcher_radio => {
-        switcher_radio.checked = (themeName === switcher_radio.value);
-      });
+    mounted() {
+      this.initSelectedTheme();
     }
-  },
-  mounted() {
-    this.initSelectedTheme();
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-@import "src/scss/mixins/mixins";
+  @import "src/scss/mixins/mixins";
 
-.switcher {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: fit-content;
-  border: {
-    width: 3px;
-    radius: 18px;
-    style: solid;
-    color: var(--color-font);
+  .switcher {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    border: {
+      width: 3px;
+      radius: 18px;
+      style: solid;
+      color: var(--color-font);
+    }
   }
-}
 
-.switcher__radio {
-  @include appearance(none);
-  @include background-img__contain-no-repeat();
-  transition: all 0.5s linear;
-  width: 20px;
-  height: 20px;
-  margin: 5px;
+  .switcher__radio {
+    @include appearance(none);
+    @include background-img__contain-no-repeat();
+    transition: all 0.5s linear;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
 
-  &:checked {
-    transform: scale(1.5);
+    &:checked {
+      transform: scale(1.5);
+    }
   }
-}
 
-[data-theme='dark'] {
-  .switcher__radio--circle,
-  .switcher__radio--moon,
+  [data-theme='dark'] {
+    .switcher__radio--circle,
+    .switcher__radio--moon,
+    .switcher__radio--sun {
+      filter: invert(0.9);
+    }
+  }
+
+  .switcher__radio--circle {
+    @include use-svg('circle');
+  }
+
+  .switcher__radio--moon {
+    @include use-svg('moon');
+  }
+
   .switcher__radio--sun {
-    filter: invert(0.9);
+    @include use-svg('sun');
   }
-}
-
-.switcher__radio--circle {
-  @include use-svg('circle');
-}
-
-.switcher__radio--moon {
-  @include use-svg('moon');
-}
-
-.switcher__radio--sun {
-  @include use-svg('sun');
-}
 </style>

@@ -34,6 +34,8 @@
         <ui-button disabled variant="warning">Email Code</ui-button>
         <ui-button disabled variant="common">Twitter</ui-button>
       </ui-button-group>
+
+      <ui-spinner :is-show="isLoading"></ui-spinner>
     </template>
   </ui-card-simple>
 </template>
@@ -44,10 +46,12 @@
   import UiButton from "../ui/button/UiButton";
   import UiSeparatorLineText from "../ui/separator/UiSeparatorLineText";
   import UiButtonGroup from "../ui/button/UiButtonGroup";
+  import UiSpinner from "../ui/spinner/UiSpinner";
 
   export default {
     name: "formSignIn",
     components: {
+      UiSpinner,
       UiButtonGroup,
       UiSeparatorLineText,
       UiButton,
@@ -60,6 +64,7 @@
     },
     data() {
       return {
+        isLoading: false,
         user: {
           email: this.email,
           password: this.password
@@ -73,6 +78,7 @@
 
       onSignIn() {
         this.fireEvent('signin');
+        this.isLoading = true;
 
         //TODO: Add send sign in send request
         //TODO: fire event signed
