@@ -1,13 +1,15 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "jk-client",
+  "version": "0.0.10",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "start:dev": "vue-cli-service serve --mode development",
+    "start:prod": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fingerprintjs/fingerprintjs-pro": "^3.5.5",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
     "vue": "^3.2.28",
