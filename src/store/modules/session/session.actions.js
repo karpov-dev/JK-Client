@@ -1,3 +1,3 @@
 export default {
-  // user getters
+  //actions
 }

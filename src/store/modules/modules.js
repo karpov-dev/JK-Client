@@ -1,9 +1,7 @@
-import user from "./user/user.module";
-import organization from "./organization/organization.module";
-import storage from "./theme/theme.module";
+import theme from "./theme/theme.module";
+import session from './session/session.module';
 
 export default {
-  user,
-  organization,
-  storage,
+  theme,
+  session
 };
