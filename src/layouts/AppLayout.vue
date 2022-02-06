@@ -14,7 +14,7 @@ import store from "../store";
 export default {
   name: "AppLayout",
   computed: {
-    themeName() { return store.getters["storage/getThemeToUse"] }
+    themeName() { return store.getters["theme/getThemeToUse"]; }
   }
 };
 </script>
