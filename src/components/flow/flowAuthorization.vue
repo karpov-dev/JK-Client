@@ -2,8 +2,8 @@
   <form-sign-in v-if="forms.isSignIn"
                 :email="user.email"
                 :password="user.password"
-                @ontosignup="switchFormTo('signUp', $event)"
-                @onforgotpassword="$emit('onforgotpassword', this.user)"
+                @on-to-signup="onSwitchFormToWithCopy('signUp', $event)"
+                @on-to-email-signin="onSwitchFormToWithCopy('checkCode', $event)"
   ></form-sign-in>
 
   <form-sign-up v-if="forms.isSignUp"
@@ -11,23 +11,32 @@
                 :last-name="user.lastName"
                 :email="user.email"
                 :password="user.password"
-                @ontosignin="switchFormTo('signIn', $event)"
+                @ontosignin="onSwitchFormToWithCopy('signIn', $event)"
+                @onsuccess="onSwitchFormTo('checkCode')"
   ></form-sign-up>
+
+  <form-check-code v-if="forms.isCheckCode"
+                   title="Security Code"
+                   description="Fill security code from email"
+                   @oncancel="onSwitchFormTo('signUp')"
+  ></form-check-code>
 </template>
 
 <script>
   import FormSignIn from "../form/formSignIn";
   import FormSignUp from "../form/formSignUp";
+  import FormCheckCode from "../form/formCheckCode";
   import {isComponent} from "../../services/component.service";
 
   const FORMS = {
     signIn: 'signIn',
-    signUp: 'signUp'
+    signUp: 'signUp',
+    checkCode: 'checkCode'
   }
 
   export default {
     name: "flowAuthorization",
-    components: {FormSignUp, FormSignIn},
+    components: {FormCheckCode, FormSignUp, FormSignIn},
     props: {
       form: {
         type: String,
@@ -51,8 +60,12 @@
       }
     },
     methods: {
-      switchFormTo(formName, event) {
+      onSwitchFormToWithCopy(formName, event) {
         Object.assign(this.user, event);
+        this.onSwitchFormTo(formName);
+      },
+
+      onSwitchFormTo(formName) {
         this.currentForm = FORMS[formName];
       }
     },

@@ -1,21 +1,41 @@
 <template>
-  <div v-if="isShow" class="spinner">
-    <ui-spinner-bear></ui-spinner-bear>
-  </div>
+  <transition name="fade">
+    <div v-if="isShow" class="spinner">
+      <component v-bind:is="getSpinnerComponentName"></component>
+    </div>
+  </transition>
 </template>
 
 <script>
-  //TODO: Add new spinners
   import UiSpinnerVial from "./UiSpinnerVial";
   import UiSpinnerBear from "./UiSpinnerBear";
+  import UiSpinnerCircleDoted from "./UiSpinnerCircleDoted";
+  import UiSpinnerUpdating from "./UiSpinnerUpdating";
+
+  const VARIANTS = {
+    vial: 'vial',
+    bear: 'bear',
+    updating: 'updating',
+    circleDoted: 'circle-doted'
+  }
 
   export default {
     name: "UiSpinner",
-    components: {UiSpinnerBear, UiSpinnerVial},
+    components: {UiSpinnerBear, UiSpinnerVial, UiSpinnerCircleDoted, UiSpinnerUpdating},
     props: {
+      variant: {
+        type: String,
+        default: VARIANTS.circleDoted,
+        validator(value) { return Object.values(VARIANTS).indexOf(value) !== -1; }
+      },
       isShow: {
         type: Boolean,
         default: false
+      }
+    },
+    computed: {
+      getSpinnerComponentName() {
+        return 'ui-spinner-' + this.variant;
       }
     }
   }
@@ -41,5 +61,13 @@
     content: "";
     background-color: black;
     opacity: .5;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s ease;
+  }
+
+  .fade-enter-from, .fade-leave-to {
+    opacity: 0;
   }
 </style>

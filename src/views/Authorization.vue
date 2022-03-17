@@ -1,5 +1,9 @@
 <template>
  <form-single-view>
+   <template v-slot:header>
+     <ui-theme-switcher></ui-theme-switcher>
+   </template>
+
     <flow-authorization v-if="flows.isAuthorization"
                         :first-name="currentUser.firstName"
                         :last-name="currentUser.lastName"
@@ -20,6 +24,7 @@
   import FlowAuthorization from "../components/flow/flowAuthorization";
   import FlowRestorePassword from "../components/flow/flowRestorePassword";
   import { isComponent } from "../services/component.service";
+  import UiThemeSwitcher from "../components/ui/UiThemeSwitcher";
 
   const FLOWS = {
     authorization: 'authorization',
@@ -29,6 +34,7 @@
   export default {
     name: "Authorization",
     components: {
+      UiThemeSwitcher,
       FlowRestorePassword,
       FlowAuthorization,
       FormSingleView

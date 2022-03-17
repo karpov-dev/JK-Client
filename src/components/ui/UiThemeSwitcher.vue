@@ -34,11 +34,11 @@
     name: "UiThemeSwitcher",
     methods: {
       onChangeTheme(event) {
-        store.commit('storage/setTheme', event.target.value);
+        store.commit("theme/setTheme", event.target.value);
       },
 
       initSelectedTheme() {
-        const themeName = store.getters["storage/getSelectedThemeName"];
+        const themeName = store.getters["theme/getSelectedThemeName"];
         const switcher_radios = document.querySelectorAll('.switcher__radio');
 
         switcher_radios.forEach(switcher_radio => {

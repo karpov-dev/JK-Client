@@ -12,9 +12,6 @@ app.config.errorHandler = (message, vm, trace) => globalErrorHandler(message, vm
 
 app.mount('#app');
 
-
-
-
 const globalErrorHandler = (message, vm, trace) => {
   console.error(message);
 }

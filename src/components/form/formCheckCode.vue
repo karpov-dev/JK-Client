@@ -1,5 +1,5 @@
 <template>
-  <ui-card-simple title="Checking security code" description="Fill security code from email">
+  <ui-card-simple v-bind="$attrs">
     <ui-input title="Security code"></ui-input>
 
     <ui-button-group>
@@ -20,7 +20,6 @@
     components: {UiButtonGroup, UiInput, UiCardSimple, UiButton},
     methods: {
       onCheck() {
-        //TODO: add check code request
         this.$emit('onsuccess')
       }
     }

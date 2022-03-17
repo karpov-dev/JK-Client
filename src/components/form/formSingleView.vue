@@ -34,6 +34,11 @@
     grid-template-rows: repeat(3, auto);
   }
 
+  .form__grid--header {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
   .form__grid--content {
     display: flex;
     justify-content: center;

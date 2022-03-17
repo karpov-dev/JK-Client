@@ -3,7 +3,7 @@
     <template v-slot:card-description>
       Don't have an account?
       <a href="javascript:void(0);"
-         @click="fireEvent('ontosignup')">Sign Up</a>
+         @click="fireEvent('on-to-signup')">Sign Up</a>
     </template>
 
     <template v-slot:default>
@@ -17,13 +17,7 @@
                 type="password"
                 :value="user.password"
                 @input="onUserInput"
-      >
-        <template v-slot:under>
-          <a href="javascript:void(0);"
-             class="forgot-password__link"
-             @click="fireEvent('onforgotpassword')">Forgot password?</a>
-        </template>
-      </ui-input>
+      ></ui-input>
 
       <ui-button variant="success" @click="onSignIn">Sign In</ui-button>
 
@@ -31,7 +25,7 @@
 
       <ui-button-group>
         <ui-button disabled variant="danger">Google</ui-button>
-        <ui-button disabled variant="warning">Email Code</ui-button>
+        <ui-button variant="warning" @click="fireEvent('on-to-email-signin')">Email Code</ui-button>
         <ui-button disabled variant="common">Twitter</ui-button>
       </ui-button-group>
 
@@ -47,16 +41,21 @@
   import UiSeparatorLineText from "../ui/separator/UiSeparatorLineText";
   import UiButtonGroup from "../ui/button/UiButtonGroup";
   import UiSpinner from "../ui/spinner/UiSpinner";
+  import {AuthApi} from "../../services/api/AuthApi";
+  import UiCheckbox from "../ui/input/UiCheckbox";
+  import UiRadio from "../ui/input/UiRadio";
 
   export default {
     name: "formSignIn",
     components: {
+      UiRadio,
+      UiCheckbox,
       UiSpinner,
       UiButtonGroup,
       UiSeparatorLineText,
       UiButton,
       UiInput,
-      UiCardSimple
+      UiCardSimple,
     },
     props: {
       email: String,
@@ -77,11 +76,19 @@
       },
 
       onSignIn() {
-        this.fireEvent('signin');
         this.isLoading = true;
+        AuthApi.api.user.signInByPassword.call(this.user.email, this.user.password)
+            .then(response => this.onSingInSuccess(response))
+            .catch(error => this.onSignInError(error))
+            .finally(() => this.isLoading = false);
+      },
 
-        //TODO: Add send sign in send request
-        //TODO: fire event signed
+      onSingInSuccess(response) {
+        console.log(response);
+      },
+
+      onSignInError(error) {
+        console.error(error)
       },
 
       fireEvent(eventName) {
@@ -90,9 +97,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .forgot-password__link {
-    font-size: var(--font-size__small-xx);
-  }
-</style>

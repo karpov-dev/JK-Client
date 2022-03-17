@@ -1,6 +1,6 @@
 import {isHasEmptyParam} from "../functions.service";
 import {PropertyRequiredError} from "../exceptions/PropertyRequiredError";
-import {Http} from "../http.service";
+import {Http} from "../http/Http";
 
 class AuthApi {
 
@@ -9,14 +9,13 @@ class AuthApi {
   }
 
   static user = {
-    signInByPassword: (username, password) => {
-      if (isHasEmptyParam(username, password)) throw new PropertyRequiredError({username, password});
+    signInByPassword: (email, password) => {
+      if (isHasEmptyParam(email, password)) throw new PropertyRequiredError({email, password});
 
-      //TODO: change username to email
       return new Http()
         .useEndPoint(this.api.user.signInByPassword.url)
         .useMethod(Http.METHOD.POST)
-        .usePayload({username, password})
+        .usePayload({email, password})
         .useFingerPrint()
         .call();
     },
@@ -24,14 +23,10 @@ class AuthApi {
     signUp: (user) => {
       if(isHasEmptyParam(user)) throw new PropertyRequiredError(user);
 
-      //TODO: need delete
-      user.fingerprint = 'test';
-
       return new Http()
         .useEndPoint(this.api.user.signUp.url)
         .useMethod(Http.METHOD.POST)
         .usePayload(user)
-        .useFingerPrint()
         .call();
     }
   }

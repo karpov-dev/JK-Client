@@ -1,7 +1,7 @@
 import axios from "axios";
-import {isEmptyParams, isHasEmptyParam} from "./functions.service";
-import {PropertyRequiredError} from "./exceptions/PropertyRequiredError";
-import store from "../store";
+import {isEmptyParams, isHasEmptyParam} from "../functions.service";
+import {PropertyRequiredError} from "../exceptions/PropertyRequiredError";
+import store from "../../store";
 
 class Http {
 
@@ -25,7 +25,6 @@ class Http {
   payload = {};
 
   call() {
-    console.log(this.payload)
     return axios({
       method: this.method,
       url: this.endPoint,

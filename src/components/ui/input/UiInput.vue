@@ -1,5 +1,5 @@
 <template>
-  <component v-bind:is="getInputComponentName" v-bind="$attrs">
+  <component v-bind:is="getInputComponentName" v-bind="$attrs" :type="type">
     <template v-slot:under><slot name="under"></slot></template>
     <template v-slot:over><slot name="over"></slot></template>
     <template v-slot:before><slot name="before"></slot></template>
