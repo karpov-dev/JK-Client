@@ -19,7 +19,7 @@
 
 .select-checkmark__standard:disabled,
 .select[data-disabled='true'] {
-  filter: var(--brightness__disabled);
+  filter: var(--brightness__disabled-soft);
 }
 
 .select-checkmark__standard[type="radio"]::before,

@@ -1,9 +1,10 @@
 <template>
-  <div class="select-button__container button-color__common button-group__allowed">
+  <div class="select-button__container button-color__common button-group__allowed" :data-disabled="disabled">
     <input :id="value"
            :type="type"
+           :disabled="disabled"
            class="select-button__checkmark"
-           v-bind="$attrs" >
+           v-bind="$attrs">
     <div class="select-button__label-container">
       <label :for="value" class="select-button__label">{{label}}</label>
     </div>
@@ -19,6 +20,7 @@
     props: {
       label: String,
       value: String,
+      disabled: Boolean,
       type: {
         type: String,
         default: uiConstants.select.type.radio,

@@ -40,7 +40,9 @@
     --color-background__card-error: var(--color-background__error);
 
     /* Filters */
-    --brightness__disabled: var(--brightness__600);
+    --brightness__disabled-hard: var(--brightness__400);
+    --brightness__disabled-medium: var(--brightness__600);
+    --brightness__disabled-soft: var(--brightness__700);
     --brightness__hover: var(--brightness__900);
     --brightness__active: var(--brightness__800);
 }
