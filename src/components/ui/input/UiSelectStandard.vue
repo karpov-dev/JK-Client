@@ -1,6 +1,9 @@
 <template>
-  <label class="select select-color__standard">
-    <input class="select-checkmark__standard" v-bind="$attrs" :type="type">
+  <label class="select select-color__standard" :data-disabled="disabled">
+    <input class="select-checkmark__standard"
+           v-bind="$attrs"
+           :type="type"
+           :disabled="disabled">
     {{label}}
   </label>
 </template>
@@ -13,6 +16,7 @@
     name: "UiSelectStandard",
     props: {
       label: String,
+      disabled: Boolean,
       type: {
         type: String,
         default: uiConstants.select.type.radio,

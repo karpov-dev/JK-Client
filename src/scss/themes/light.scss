@@ -33,13 +33,14 @@
     --color-input__background: var(--color-accent__gray--100);
     --color-input__border: var(--color-accent__gray--600);
     --color-input-radio__checked: var(--color-accent__blue--400);
+    --color-input-radio__background: var(--color-accent__gray--500);
 
     /* Cards */
     --color-background__card: var(--color-accent__gray--000);
     --color-background__card-error: var(--color-background__error);
 
     /* Filters */
-    --brightness__disabled: var(--brightness__700);
-    --brightness__hover: var(--brightness__900);
+    --brightness__disabled: var(--brightness__930);
+    --brightness__hover: var(--brightness__950);
     --brightness__active: var(--brightness__800);
 }
