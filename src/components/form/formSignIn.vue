@@ -23,16 +23,6 @@
 
       <ui-separator-line-text>OR</ui-separator-line-text>
 
-      <ui-button-group>
-        <ui-button class="button-color__danger" disabled>Google</ui-button>
-        <ui-button class="button-color__warning" @click="fireEvent('on-to-email-signin')">Email Code</ui-button>
-        <ui-button class="button-color__common" disabled>Twitter</ui-button>
-      </ui-button-group>
-
-      <ui-select variant="button" type="radio" name="button-test" value="1" label="One Button"></ui-select>
-      <ui-select variant="button" type="radio" name="button-test" value="2" label="Two Button"></ui-select>
-      <ui-select variant="button" type="radio" name="button-test" value="3" label="Three Button"></ui-select>
-      
       <ui-spinner :is-show="isLoading"></ui-spinner>
     </template>
   </ui-card-simple>
@@ -46,12 +36,10 @@
   import UiButtonGroup from "../ui/button/UiButtonGroup";
   import UiSpinner from "../ui/spinner/UiSpinner";
   import {AuthApi} from "../../services/api/AuthApi";
-  import UiSelect from "../ui/input/UiSelect";
 
   export default {
     name: "formSignIn",
     components: {
-      UiSelect,
       UiSpinner,
       UiButtonGroup,
       UiSeparatorLineText,

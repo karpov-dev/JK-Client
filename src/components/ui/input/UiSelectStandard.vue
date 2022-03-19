@@ -6,11 +6,11 @@
 </template>
 
 <script>
-  import {uiConstants} from "../../services/constants/ui.constants";
-  import {isContainElement} from "../../services/arrays.service";
+  import {uiConstants} from "../../../services/constants/ui.constants";
+  import {isContainElement} from "../../../services/arrays.service";
 
   export default {
-    name: "BaseSelectStandard",
+    name: "UiSelectStandard",
     props: {
       label: String,
       type: {

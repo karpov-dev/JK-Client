@@ -1,3 +1,10 @@
+.select {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  user-select: none;
+}
+
 .select-checkmark__standard {
   appearance: none;
   margin: 0;

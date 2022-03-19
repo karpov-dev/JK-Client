@@ -11,23 +11,23 @@
 </template>
 
 <script>
-import {uiConstants} from "../../services/constants/ui.constants";
-import {isContainElement} from "../../services/arrays.service";
+  import {uiConstants} from "../../../services/constants/ui.constants";
+  import {isContainElement} from "../../../services/arrays.service";
 
-export default {
-  name: "BaseSelectButton",
-  props: {
-    label: String,
-    value: String,
-    type: {
-      type: String,
-      default: uiConstants.select.type.radio,
-      validator(value) {
-        return isContainElement(value, Object.values(uiConstants.select.type));
+  export default {
+    name: "UiSelectButton",
+    props: {
+      label: String,
+      value: String,
+      type: {
+        type: String,
+        default: uiConstants.select.type.radio,
+        validator(value) {
+          return isContainElement(value, Object.values(uiConstants.select.type));
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped lang="scss">
