@@ -4,7 +4,7 @@
 [data-theme='light'], [data-theme='auto'] {
     /* Backgrounds */
     --color-background__global: var(--color-accent__gray--100);
-    --color-background__card: var(--color-accent__gray--000);
+    --color-background__error: var(--color-accent__red--400);
 
     /* Fonts */
     --color-font__accent: var(--color-accent__gray--1600);
@@ -12,7 +12,7 @@
     --color-font: var(--color-accent__gray--1400);
     --color-font__secondary: var(--color-accent__gray--1000);
     --color-font-disabled: var(--color-accent__gray--500);
-    --color-font-required: var(--color-accent__red--300);
+    --color-font-required: var(--color-background__error);
     --color-font__link: var(--color-accent__blue--400);
 
     /* Shadows  */
@@ -33,6 +33,10 @@
     --color-input__background: var(--color-accent__gray--100);
     --color-input__border: var(--color-accent__gray--600);
     --color-input-radio__checked: var(--color-accent__blue--400);
+
+    /* Cards */
+    --color-background__card: var(--color-accent__gray--000);
+    --color-background__card-error: var(--color-background__error);
 
     /* Filters */
     --brightness__disabled: var(--brightness__700);

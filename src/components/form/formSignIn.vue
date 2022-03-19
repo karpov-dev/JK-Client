@@ -19,16 +19,20 @@
                 @input="onUserInput"
       ></ui-input>
 
-      <ui-button variant="success" @click="onSignIn">Sign In</ui-button>
+      <ui-button class="button-color__success" @click="onSignIn">Sign In</ui-button>
 
       <ui-separator-line-text>OR</ui-separator-line-text>
 
       <ui-button-group>
-        <ui-button disabled variant="danger">Google</ui-button>
-        <ui-button variant="warning" @click="fireEvent('on-to-email-signin')">Email Code</ui-button>
-        <ui-button disabled variant="common">Twitter</ui-button>
+        <ui-button class="button-color__danger" disabled>Google</ui-button>
+        <ui-button class="button-color__warning" @click="fireEvent('on-to-email-signin')">Email Code</ui-button>
+        <ui-button class="button-color__common" disabled>Twitter</ui-button>
       </ui-button-group>
 
+      <ui-select variant="button" type="radio" name="button-test" value="1" label="One Button"></ui-select>
+      <ui-select variant="button" type="radio" name="button-test" value="2" label="Two Button"></ui-select>
+      <ui-select variant="button" type="radio" name="button-test" value="3" label="Three Button"></ui-select>
+      
       <ui-spinner :is-show="isLoading"></ui-spinner>
     </template>
   </ui-card-simple>
@@ -42,14 +46,12 @@
   import UiButtonGroup from "../ui/button/UiButtonGroup";
   import UiSpinner from "../ui/spinner/UiSpinner";
   import {AuthApi} from "../../services/api/AuthApi";
-  import UiCheckbox from "../ui/input/UiCheckbox";
-  import UiRadio from "../ui/input/UiRadio";
+  import UiSelect from "../ui/input/UiSelect";
 
   export default {
     name: "formSignIn",
     components: {
-      UiRadio,
-      UiCheckbox,
+      UiSelect,
       UiSpinner,
       UiButtonGroup,
       UiSeparatorLineText,
@@ -71,6 +73,10 @@
       }
     },
     methods: {
+      test(event) {
+        console.log(event.target.value)
+      },
+
       onUserInput(event) {
         this.user[event.target.name] = event.target.value;
       },

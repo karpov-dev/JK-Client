@@ -1,0 +1,41 @@
+.select-checkmark__standard {
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  background-color: var(--color__background);
+  width: 1.17em;
+  height: 1.17em;
+  display: grid;
+  place-content: center;
+  transform: translateY(-0.075em);
+}
+
+.select-checkmark__standard[type="radio"]::before,
+.select-checkmark__standard[type="checkbox"]::before {
+  content: "";
+  width: 0.75em;
+  height: 0.75em;
+  transform: scale(0);
+  transition: var(--transition-duration__medium) transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color_checkmark);
+}
+
+.select-checkmark__standard,
+.select-checkmark__standard[type="radio"]::before {
+  border-radius: 50%;
+}
+
+.select-checkmark__standard,
+.select-checkmark__standard[type="checkbox"]::before {
+  border-radius: 30%;
+}
+
+.select-checkmark__standard[type="radio"]:checked::before,
+.select-checkmark__standard[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.select-checkmark__standard[type="radio"]:hover:not(:checked)::before,
+.select-checkmark__standard[type="checkbox"]:hover:not(:checked)::before {
+  transform: scale(0.5);
+}

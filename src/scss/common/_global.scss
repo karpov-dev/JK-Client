@@ -1,5 +1,11 @@
 $--path__assets: '~@/assets/icons/';
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 * {
   outline-color: var(--color-outline__global);
 }

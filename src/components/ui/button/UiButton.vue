@@ -1,35 +1,33 @@
 <template>
-  <base-button-outline v-if="isOutline" v-bind="$attrs">
+  <button v-bind="$attrs"
+          class="button"
+          role="button"
+          tabindex="0"
+          :class="{'button-outlined' : isOutlined, 'button-filled' : isFilled}">
     <slot></slot>
-  </base-button-outline>
-
-  <base-button-fill v-if="isFill" v-bind="$attrs">
-    <slot></slot>
-  </base-button-fill>
+  </button>
 </template>
 
 <script>
-  import BaseButtonOutline from "../../base/BaseButtonOutline";
-  import BaseButtonFill from "../../base/BaseButtonFill";
-
-  const BUTTON_TYPES = {
-    fill: 'fill',
-    outline: 'outline'
-  }
+  import {uiConstants} from "../../../services/constants/ui.constants";
+  import {isContainElement} from "../../../services/arrays.service";
 
   export default {
     name: "UiButton",
-    components: {BaseButtonFill, BaseButtonOutline},
     props: {
       type: {
         type: String,
-        default: BUTTON_TYPES.outline,
-        validator(value) { return Object.values(BUTTON_TYPES).indexOf(value) !== -1; }
+        default: uiConstants.button.type.outline,
+        validator(value) { return isContainElement(value, Object.values(uiConstants.button.type)); }
       }
     },
     computed: {
-      isFill() { return this.type === BUTTON_TYPES.fill; },
-      isOutline() { return this.type === BUTTON_TYPES.outline; }
+      isFilled() { return this.type === uiConstants.button.type.fill; },
+      isOutlined() { return this.type === uiConstants.button.type.outline; }
     }
   }
 </script>
+
+<style scoped lang="scss">
+  @import "src/scss/design/buttons";
+</style>
