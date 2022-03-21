@@ -41,7 +41,9 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import "src/scss/design/animations";
+
   .spinner, .spinner:after {
     position: absolute;
     width: 100%;
@@ -49,6 +51,7 @@
     top: 0;
     left: 0;
     border-radius: var(--border-radius__medium);
+    z-index: 100;
   }
 
   .spinner {
@@ -61,13 +64,5 @@
     content: "";
     background-color: black;
     opacity: .5;
-  }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s ease;
-  }
-
-  .fade-enter-from, .fade-leave-to {
-    opacity: 0;
   }
 </style>

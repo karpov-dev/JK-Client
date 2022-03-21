@@ -1,0 +1,34 @@
+.card-form {
+  box-shadow: var(--box-shadow__medium);
+  padding: var(--padding__large-xxx);
+  background-color: var(--color-background__card);
+  border-radius: var(--border-radius__medium);
+}
+
+.card-form__header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-form__header-title {
+  text-align: center;
+  font-family: var(--font-famaly__viga);
+  font-size: var(--font-size__large-x);
+  padding-bottom: var(--margin__small-xxx);
+}
+
+.card-form__header-description {
+  text-align: center;
+  font-size: var(--font-size__large);
+}
+
+.card-form__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-form__background {
+  background-color: var(--color-background__card);;
+}

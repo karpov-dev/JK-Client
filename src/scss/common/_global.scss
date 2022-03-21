@@ -1,8 +1,11 @@
+@import "src/scss/design/animations";
+
 $--path__assets: '~@/assets/icons/';
 
 *,
 *::before,
 *::after {
+  @extend .change-theme-animation__allowed;
   box-sizing: border-box;
 }
 
@@ -21,10 +24,4 @@ html, body, #app {
   margin: var(--margin__ziro);
   font-size: 95%;
   min-height: 100vh;
-  transition: background-color 0.2s linear;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }

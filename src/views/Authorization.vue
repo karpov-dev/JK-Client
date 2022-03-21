@@ -4,27 +4,20 @@
      <ui-theme-switcher></ui-theme-switcher>
    </template>
 
-    <flow-authorization v-if="flows.isAuthorization"
-                        :first-name="currentUser.firstName"
-                        :last-name="currentUser.lastName"
-                        :email="currentUser.email"
-                        :password="currentUser.password"
-                        @onforgotpassword="switchFlowTo('restorePassword', $event)"
-    ></flow-authorization>
-
-   <flow-restore-password v-if="flows.isRestorePassword"
-                          :email="currentUser.email"
-                          @oncancel="switchFlowTo('authorization', $event)"
-   ></flow-restore-password>
+   <flow-sign-in-switcher></flow-sign-in-switcher>
  </form-single-view>
 </template>
 
 <script>
   import FormSingleView from "../components/form/formSingleView";
-  import FlowAuthorization from "../components/flow/flowAuthorization";
-  import FlowRestorePassword from "../components/flow/flowRestorePassword";
   import { isComponent } from "../services/component.service";
   import UiThemeSwitcher from "../components/ui/UiThemeSwitcher";
+  import UiCard from "../components/ui/card/UiCard";
+  import UiCardForm from "../components/ui/card/UiCardForm";
+  import UiInput from "../components/ui/input/UiInput";
+  import FormSignInByPassword from "../components/form/formSignInByPassword";
+  import FormSignUp from "../components/form/formSignUp";
+  import FlowSignInSwitcher from "../components/flow/flowSignInSwitcher";
 
   const FLOWS = {
     authorization: 'authorization',
@@ -34,9 +27,13 @@
   export default {
     name: "Authorization",
     components: {
+      FlowSignInSwitcher,
+      FormSignUp,
+      FormSignInByPassword,
+      UiInput,
+      UiCardForm,
+      UiCard,
       UiThemeSwitcher,
-      FlowRestorePassword,
-      FlowAuthorization,
       FormSingleView
     },
     props: {
@@ -72,3 +69,7 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+  @import "src/scss/design/_input/input-base";
+</style>

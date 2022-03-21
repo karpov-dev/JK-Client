@@ -1,119 +1,100 @@
 <template>
-  <ui-card-simple title="Create Account">
-    <template v-slot:card-description>
+  <ui-card-form title="Sign Up">
+    <template v-slot:description>
       Already have an Account?
-      <a href="javascript:void(0);" @click="toSignIn">Sign In</a>
+      <a href="javascript:void(0);">Sign In</a>
     </template>
 
-    <template v-slot:default>
-      <div class="card__initials">
-        <ui-input name="firstName"
-                  title="First Name"
-                  :value="user.firstName"
-                  @input="onUserInput"
-        ></ui-input>
-        <ui-input name="lastName"
-                  title="Last Name"
-                  :value="user.lastName"
-                  @input="onUserInput"
-        ></ui-input>
-      </div>
-
-      <ui-input name="email"
-                title="Email"
-                type="email"
-                :value="user.email"
-                @input="onUserInput"
+    <div class="sign-up__initials">
+      <ui-input name="firstName"
+                label="First Name"
+                :value="user.firstName"
+                @input="onInput"
       ></ui-input>
 
-      <ui-input name="password"
-                title="Password"
-                type="password"
-                :value="password"
-                @input="onUserInput"
+      <ui-input name="lastName"
+                label="Last Name"
+                :value="user.lastName"
+                @input="onInput"
       ></ui-input>
+    </div>
 
-      <ui-button variant="success" @click="onCreateAccount">Create</ui-button>
+    <ui-input-email name="email"
+                    label="Email"
+                    :value="user.email"
+                    @input="onInput"
+    ></ui-input-email>
 
-      <ui-separator-line-text>OR</ui-separator-line-text>
+    <ui-input-password name="password"
+                       label="Password"
+                       :value="user.password"
+                       @input="onInput"
+    ></ui-input-password>
 
-      <ui-button-group>
-        <ui-button disabled variant="danger">Google (Soon)</ui-button>
-        <ui-button disabled variant="common">Twitter (Soon)</ui-button>
-      </ui-button-group>
-
-      <ui-spinner :is-show="isLoading" variant="circle-doted"></ui-spinner>
-    </template>
-  </ui-card-simple>
+    <ui-button class="button-color__sign-up" @click="onSignUp">Sign Up</ui-button>
+  </ui-card-form>
 </template>
 
 <script>
-  import UiCardSimple from "../ui/card/UiCardSimple";
+  import UiCardForm from "../ui/card/UiCardForm";
   import UiInput from "../ui/input/UiInput";
+  import UiInputEmail from "../ui/input/UiInputEmail";
+  import UiInputPassword from "../ui/input/UiInputPassword";
   import UiButton from "../ui/button/UiButton";
-  import UiInputGroup from "../ui/input/UiInputGroup";
-  import UiSeparatorLineText from '../ui/separator/UiSeparatorLineText';
-  import UiButtonGroup from "../ui/button/UiButtonGroup";
-  import {AuthApi} from "../../services/api/AuthApi";
   import UiSpinner from "../ui/spinner/UiSpinner";
+  import {AuthApi} from "../../services/api/AuthApi";
 
   export default {
     name: "formSignUp",
-    components: {
-      UiSpinner,
-      UiButtonGroup,
-      UiInputGroup,
-      UiButton,
-      UiInput,
-      UiCardSimple,
-      UiSeparatorLineText
-    },
+    components: {UiSpinner, UiButton, UiInputPassword, UiInputEmail, UiInput, UiCardForm},
     props: {
       firstName: String,
       lastName: String,
       email: String,
       password: String
     },
-    data() {
-      return {
-        isLoading: false,
-        user: {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password
-        }
+    data() { return {
+      user: {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        password: this.password
       }
-    },
+    }},
     methods: {
-      onUserInput(event) {
-        this.user[event.target.name] = event.target.value;
-      },
+      onInput(event) { this.user[event.target.name] = event.target.value; },
 
-      onCreateAccount() {
-        this.isLoading = true;
+      onSignUp() {
+        this.$emit('on-loading');
+
         AuthApi.api.user.signUp.call(this.user)
-            .then(response => this.$emit('onsuccess', response))
-            .catch(error => this.$emit('onerror', error))
-            .finally(() => this.isLoading = false);
+            .then(() => this.signUpSuccess())
+            .catch(error => this.signUpFailed(error))
+            .finally(() => this.$emit('on-loading-done'));
       },
 
-      toSignIn() {
-        this.$emit('ontosignin', this.user);
+      signUpSuccess() {
+        this.$emit('on-success-sign-up', this.user);
+      },
+
+      signUpFailed(error) {
+        console.log(error);
       }
     }
   }
 </script>
 
-<style scoped>
-  .card__initials {
+<style scoped lang="scss">
+  @import "src/scss/design/buttons";
+
+  .sign-up__initials {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
   @media screen and (min-width: 800px) {
-    .card__initials {
+    .sign-up__initials {
       flex-direction: row;
     }
   }

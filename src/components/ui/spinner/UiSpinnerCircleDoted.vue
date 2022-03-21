@@ -11,7 +11,7 @@ export default {
 <style scoped>
   .loader {
     position: relative;
-    z-index: 1;
+    z-index: 101;
     width: 48px;
     height: 48px;
     border: 3px dotted #FFF;

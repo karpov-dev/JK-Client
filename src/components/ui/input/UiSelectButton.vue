@@ -2,11 +2,12 @@
   <div class="select-button__container button-color__common button-group__allowed" :data-disabled="disabled">
     <input :id="value"
            :type="type"
+           :value="value"
            :disabled="disabled"
            class="select-button__checkmark"
            v-bind="$attrs">
     <div class="select-button__label-container">
-      <label :for="value" class="select-button__label">{{label}}</label>
+      <label :for="value" class="select-button__label"><slot>{{label}}</slot></label>
     </div>
   </div>
 </template>

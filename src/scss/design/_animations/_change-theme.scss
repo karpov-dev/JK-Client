@@ -1,0 +1,5 @@
+.change-theme-animation__allowed {
+  transition-property: background-color;
+  transition-duration: var(--transition-duration__medium);
+  transition-timing-function: linear;
+}

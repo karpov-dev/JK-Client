@@ -17,3 +17,19 @@
 .button-color__danger {
   --accent-color: var(--color-button__danger-accent);
 }
+
+.button-color__sign-in {
+  @extend .button-color__success;
+}
+
+.button-color__sign-up {
+  @extend .button-color__success;
+}
+
+.button-color__sign-in-password {
+  @extend .button-color__warning;
+}
+
+.button-color__sign-in_email-code {
+  @extend .button-color__danger;
+}
