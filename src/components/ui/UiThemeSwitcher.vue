@@ -36,6 +36,8 @@
     methods: {
       onChangeTheme(event) {
         store.commit("theme/setTheme", event.target.value);
+
+        this.$eventBus.push('on-change-theme', event.target.value);
       },
 
       initSelectedTheme() {

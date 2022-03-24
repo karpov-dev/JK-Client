@@ -9,9 +9,15 @@
 @import "global-path";
 @import "mixins";
 
+@import "../design/animations/bounce";
+@import "../design/animations/fade";
+@import "../design/animations/slideBlurred";
+@import "../design/animations/list";
+
 *, *::before, *::after {
   box-sizing: border-box;
   outline-color: var(--color-outline__global);
+  transition: background-color 0.2s linear;
 }
 
 html, body, #app {

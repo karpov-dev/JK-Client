@@ -1,10 +1,9 @@
 @import "src/styles/global/mixins";
 
+$notification__close-size: 12px;
+$notification__close-region: 20px;
+
 .notification {
-  position: var(--notification__position, fixed);
-  top: 2%;
-  left: 0;
-  right: 0;
   margin: auto;
   width: var(--notification__width, 22%);
   min-width: 300px;
@@ -22,7 +21,15 @@
 }
 
 .notification__close {
-  @include set-size(14px, 14px);
+  @include set-size($notification__close-region, $notification__close-region);
+  @include set-absolute-position(0, auto, 0, auto);
+  position: absolute;
+  opacity: 0.5;
+  transition: opacity var(--transition-duration__fast) linear;
+}
+
+.notification__close-svg {
+  @include set-size($notification__close-size, $notification__close-size);
   @include set-absolute-position(0, auto, 0, auto);
   @include use-svg('cross');
   @include background-img__contain-no-repeat();
@@ -39,4 +46,8 @@
 
 .notification__description {
   text-align: center;
+}
+
+.notification__close:hover {
+  opacity: 1;
 }
