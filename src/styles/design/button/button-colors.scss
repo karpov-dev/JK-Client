@@ -1,0 +1,35 @@
+.button-color__default {
+  --button__background-color: var(--color-button__default-accent);
+}
+
+.button-color__common {
+  --button__background-color: var(--color-button__common-accent);
+}
+
+.button-color__success {
+  --button__background-color: var(--color-button__success-accent);
+}
+
+.button-color__warning {
+  --button__background-color: var(--color-button__warning-accent);
+}
+
+.button-color__danger {
+  --button__background-color: var(--color-button__danger-accent);
+}
+
+.button-color__sign-in {
+  --button__background-color: var(--color-button__sign-in);
+}
+
+.button-color__sign-up {
+  --button__background-color: var(--color-button__sign-up);
+}
+
+.button-color__cancel {
+  --button__background-color: var(--color-button__cancel);
+}
+
+.button-color__next {
+  --button__background-color: var(--color-button__next);
+}

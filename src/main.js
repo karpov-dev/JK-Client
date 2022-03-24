@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import AppLayout from "./layouts/AppLayout";
 import router from "./router/router";
 import store from './store';
-import './scss/style.scss';
+import './styles/global/global.scss';
 
 const app = createApp(AppLayout);
 

@@ -1,0 +1,9 @@
+[data-theme='dark'] {
+  --color-notification__success: var(--color-accent__green--500);
+  --color-notification__warning: var(--color-accent__orange--500);
+  --color-notification__error: var(--color-accent__red--500);
+  --color-notification__common: var(--color-accent__blue--500);
+  --color-notification__default: var(--color-accent__gray--1000);
+
+  --color-notification__font: var(--color-font__white);
+}

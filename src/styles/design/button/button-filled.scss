@@ -1,0 +1,8 @@
+.button-filled {
+  color: var(--button__color, var(--color-button-font__filled));
+  background-color: var(--button__background-color, var(--color-button__common-accent));
+}
+
+.button-filled:hover:not(:disabled), .button-filled__hover {
+  filter: var(--button__hover-filter ,var(--brightness__hover));
+}

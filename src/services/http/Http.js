@@ -15,6 +15,11 @@ class Http {
     userAgent: 'User-Agent'
   }
 
+  static STATUS = {
+    OK: 200,
+    CREATED: 201
+  }
+
   accessToken = null;
   fingerPrint = null;
   endPoint = null;

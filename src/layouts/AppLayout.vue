@@ -20,6 +20,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import url("../scss/themes/light.scss");
-@import url("../scss/themes/dark.scss");
+  @import url("../styles/color-schemas/light-schema.scss");
+  @import url("../styles/color-schemas/dark-schema.scss");
 </style>

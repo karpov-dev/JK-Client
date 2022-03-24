@@ -1,6 +1,8 @@
 <template>
-  <ui-card class="card-content">
-    <slot></slot>
+  <ui-card>
+    <div class="card-content">
+      <slot></slot>
+    </div>
   </ui-card>
 </template>
 
@@ -13,5 +15,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import "src/scss/design/cards";
+  @import "src/styles/design/card/card-content";
 </style>

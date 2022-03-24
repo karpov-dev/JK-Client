@@ -1,0 +1,28 @@
+@import "colors";
+@import "border-radius";
+@import "box-shadow";
+@import "paddings";
+@import "margins";
+@import "fonts-famalies";
+@import "font-sizes";
+@import "transition-durations";
+@import "global-path";
+@import "mixins";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  outline-color: var(--color-outline__global);
+}
+
+html, body, #app {
+  font-family: var(--font-famaly__comfortaa);
+  background-color: var(--color-background__global);
+  color: var(--color-font__content);
+  margin: var(--margin__ziro);
+  font-size: 95%;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-font__link);
+}

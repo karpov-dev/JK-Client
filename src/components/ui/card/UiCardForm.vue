@@ -41,5 +41,5 @@
 </script>
 
 <style scoped lang="scss">
-  @import "src/scss/design/cards";
+  @import "src/styles/design/card/card-form";
 </style>

@@ -42,7 +42,6 @@
 </script>
 
 <style scoped lang="scss">
-  @import "src/scss/design/animations";
 
   .spinner, .spinner:after {
     position: absolute;

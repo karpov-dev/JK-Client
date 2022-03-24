@@ -15,6 +15,27 @@ const uiConstants = {
       fill: 'fill',
       outline: 'outline'
     }
+  },
+
+  securityCode: {
+    codeType: {
+      userActivation: 'user_activation',
+      authorization: 'user_activation'
+    },
+    method: {
+      email: 'email',
+      phone: 'phone'
+    }
+  },
+
+  notification: {
+    variant: {
+      success: 'success',
+      warning: 'warning',
+      error: 'error',
+      common: 'common',
+      default: 'default'
+    }
   }
 }
 

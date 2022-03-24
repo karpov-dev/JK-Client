@@ -6,6 +6,7 @@
            :disabled="disabled"
            class="select-button__checkmark"
            v-bind="$attrs">
+
     <div class="select-button__label-container">
       <label :for="value" class="select-button__label"><slot>{{label}}</slot></label>
     </div>
@@ -34,5 +35,5 @@
 </script>
 
 <style scoped lang="scss">
-  @import "src/scss/design/selects";
+  @import "src/styles/design/select/style";
 </style>

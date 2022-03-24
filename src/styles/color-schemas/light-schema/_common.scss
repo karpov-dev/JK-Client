@@ -1,0 +1,5 @@
+[data-theme='light'], [data-theme='auto'] {
+  --color-background__global: var(--color-accent__gray--100);
+  --color-shadow: var(--color-accent__gray--800);
+  --color-outline__global: var(--color-accent__gray--1400);
+}

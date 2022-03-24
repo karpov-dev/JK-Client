@@ -1,0 +1,55 @@
+@import "../../global/mixins";
+
+.select {
+  display: flex;
+  flex-direction: row;
+  user-select: none;
+  gap: var(--select-standard__gap, 5px);
+}
+
+.select-checkmark__standard {
+  @include set-appearance(none);
+  display: grid;
+  place-content: center;
+  font: inherit;
+  margin: 0;
+  background-color: var(--select-standard__background-color, var(--color-input-radio__background));
+  width: var(--select-standard__checkmark-width, 1.17em);
+  height: var(--select-standard__checkmark-height, 1.17em);
+  transform: translateY(-0.075em);
+}
+
+.select-checkmark__standard:disabled,
+.select[data-disabled='true'] {
+  filter: var(--select-standard__disabled-filter, var(--brightness__disabled-soft));
+}
+
+.select-checkmark__standard[type="radio"]::before,
+.select-checkmark__standard[type="checkbox"]::before {
+  content: "";
+  width: var(--select-standard__checmark-berore-width, 0.75em);
+  height: var(--select-standard__checmark-berore-height, 0.75em);
+  transform: scale(0);
+  transition: var(--transition-duration__medium) transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-input-radio__checked);
+}
+
+.select-checkmark__standard[type="radio"],
+.select-checkmark__standard[type="radio"]::before {
+  border-radius: var(--select-standard__border-rarius, var(--border-radius__50));
+}
+
+.select-checkmark__standard[type="checkbox"],
+.select-checkmark__standard[type="checkbox"]::before {
+  border-radius: var(--select-standard__border-rarius, var(--border-radius__30));
+}
+
+.select-checkmark__standard[type="radio"]:checked::before,
+.select-checkmark__standard[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.select-checkmark__standard[type="radio"]:hover:not(:checked):not(:disabled)::before,
+.select-checkmark__standard[type="checkbox"]:hover:not(:checked):not(:disabled)::before {
+  transform: scale(0.5);
+}

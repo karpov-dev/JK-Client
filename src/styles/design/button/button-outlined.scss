@@ -1,0 +1,29 @@
+@import "../../global/mixins";
+
+.button-outlined {
+  @extend .button-outlined__label;
+  border: var(--button__border-width, 1px) solid var(--button__background-color, var(--color-button__common-accent));
+  background-color: transparent;
+  transition: background-color var(--transition-duration__fast) linear;
+}
+
+.button-outlined::after {
+  @include set-size(100%, 100%);
+  @include set-absolute-position(0, 0, auto, auto);
+  content: '';
+  position: absolute;
+  opacity: .1;
+  background-color: var(--button__after-background-color, var(--button__background-color));
+}
+
+.button-outlined:hover:not(:disabled), .button-outlined__hover {
+  background-color: var(--button__hover-background-color, var(--button__background-color));
+}
+
+.button-outlined__label {
+  color: var(--button__color, var(--button__background-color));
+}
+
+.button-outlined__label:hover:not(:disabled), .button-outlined__label-hover {
+  color: var(--button__hover-color, var(--color-button__font));
+}

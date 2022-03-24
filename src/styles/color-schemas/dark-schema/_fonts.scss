@@ -1,0 +1,12 @@
+[data-theme='dark'] {
+  --color-font__black: var(--color-accent__gray--1600);
+  --color-font__white: var(--color-accent__gray--400);
+  --color-font__red: var(--color-accent__red--500);
+  --color-font__blue: var(--color-accent__blue--500);
+
+  --color-font__content: var(--color-font__white);
+  --color-font__content-secondary: var(--color-accent__gray--600);
+
+  --color-font__required: var(--color-font__red);
+  --color-font__link: var(--color-font__blue);
+}

@@ -1,0 +1,7 @@
+[data-theme='light'], [data-theme='auto'] {
+  --brightness__disabled-hard: var(--brightness__600);
+  --brightness__disabled-medium: var(--brightness__800);
+  --brightness__disabled-soft: var(--brightness__930);
+  --brightness__hover: var(--brightness__950);
+  --brightness__active: var(--brightness__800);
+}

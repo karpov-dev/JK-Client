@@ -5,19 +5,26 @@
    </template>
 
    <flow-sign-in-switcher></flow-sign-in-switcher>
+   <ui-notification-queue></ui-notification-queue>
  </form-single-view>
+
 </template>
 
 <script>
-  import FormSingleView from "../components/form/formSingleView";
+  import FormSingleView from "../components/form/single-view/formSingleView";
   import { isComponent } from "../services/component.service";
   import UiThemeSwitcher from "../components/ui/UiThemeSwitcher";
   import UiCard from "../components/ui/card/UiCard";
   import UiCardForm from "../components/ui/card/UiCardForm";
   import UiInput from "../components/ui/input/UiInput";
-  import FormSignInByPassword from "../components/form/formSignInByPassword";
-  import FormSignUp from "../components/form/formSignUp";
-  import FlowSignInSwitcher from "../components/flow/flowSignInSwitcher";
+  import FormSignInByPassword from "../components/form/sign-in/formSignInByPassword";
+  import FormSignUp from "../components/form/sign-up/formSignUp";
+  import FlowSignInSwitcher from "../components/form/sign-in/formSignInTypeSwitcher";
+  import FlowSignIn from "../components/flow/flowSignIn";
+  import FormSecurityCodeSend from "../components/form/security-code/formSecurityCodeSend";
+  import UiNotification from "../components/ui/notification/UiNotification";
+  import UiButton from "../components/ui/button/UiButton";
+  import UiNotificationQueue from "../components/ui/notification/UiNotificationQueue";
 
   const FLOWS = {
     authorization: 'authorization',
@@ -27,6 +34,11 @@
   export default {
     name: "Authorization",
     components: {
+      UiNotificationQueue,
+      UiButton,
+      UiNotification,
+      FormSecurityCodeSend,
+      FlowSignIn,
       FlowSignInSwitcher,
       FormSignUp,
       FormSignInByPassword,
@@ -71,5 +83,5 @@
 </script>
 
 <style scoped lang="scss">
-  @import "src/scss/design/_input/input-base";
+
 </style>

@@ -1,0 +1,19 @@
+.button {
+  position: relative;
+  text-align: center;
+  margin: 0;
+  border: 0;
+  width: 100%;
+  font-family: var(--button__font-famaly, var(--font-famaly__comfortaa));
+  padding: var(--button__padding-vartical, var(--padding__medium)) var(--button__padding-horizontal, var(--padding__large-xxx));
+  border-radius: var(--button__border-radius, var(--border-radius__small));
+
+}
+
+.button:disabled {
+  filter: var(--button__disabled-filter, var(--brightness__disabled-hard));
+}
+
+.button:active {
+  filter: var(--button__active-filter, var(--brightness__active));
+}

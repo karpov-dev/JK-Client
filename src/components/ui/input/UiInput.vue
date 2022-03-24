@@ -6,7 +6,7 @@
 
     <div class="input__horizontal-content">
       <slot name="before"></slot>
-      <input class="input__input-tag" v-bind="$attrs">
+      <input class="input__input-tag" v-bind="$attrs" v-model="inputValue">
       <slot name="after"></slot>
     </div>
 
@@ -20,11 +20,15 @@
     name: "UiInput",
     props: {
       label: String,
-      required: Boolean
-    }
+      required: Boolean,
+      value: String
+    },
+    data() { return {
+      inputValue: this.value
+    }}
   }
 </script>
 
 <style scoped lang="scss">
-  @import "src/scss/design/inputs";
+  @import "src/styles/design/input/input-base";
 </style>

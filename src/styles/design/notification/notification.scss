@@ -1,0 +1,42 @@
+@import "src/styles/global/mixins";
+
+.notification {
+  position: var(--notification__position, fixed);
+  top: 2%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: var(--notification__width, 22%);
+  min-width: 300px;
+  padding: var(--notification__padding, 5px 10px);
+  border: var(--notification__border, 0);
+  border-radius: var(--notification__border-radius, var(--border-radius__medium));
+  user-select: none;
+  background-color: var(--notification__background-color);
+  color: var(--color-notification__font);
+  z-index: 100;
+}
+
+.notification__content {
+  position: relative;
+}
+
+.notification__close {
+  @include set-size(14px, 14px);
+  @include set-absolute-position(0, auto, 0, auto);
+  @include use-svg('cross');
+  @include background-img__contain-no-repeat();
+  position: absolute;
+  filter: invert(1);
+}
+
+.notification__title {
+  text-align: center;
+  font-size: var(--notification-title__font-size, var(--font-size__large-x));
+  font-family: var(--notification-title__font-famaly, var(--font-famaly__viga));
+  padding-bottom: 4px;
+}
+
+.notification__description {
+  text-align: center;
+}

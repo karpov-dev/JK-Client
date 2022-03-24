@@ -1,0 +1,15 @@
+[data-theme='light'], [data-theme='auto'] {
+  --color-button-font__filled: var(--color-font__revert);
+  --color-button__default-accent: var(--color-accent__gray--800);
+  --color-button__common-accent: var(--color-accent__blue--400);
+  --color-button__success-accent: var(--color-accent__green--400);
+  --color-button__warning-accent: var(--color-accent__orange--400);
+  --color-button__danger-accent: var(--color-accent__red--400);
+
+  --color-button__sign-in: var(--color-button__success-accent);
+  --color-button__sign-up: var(--color-button__success-accent);
+  --color-button__next: var(--color-button__common-accent);
+  --color-button__cancel: var(--color-button__danger-accent);
+
+  --color-button__font: var(--color-font__white);
+}

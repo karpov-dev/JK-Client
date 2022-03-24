@@ -1,6 +1,6 @@
 <template>
   <button v-bind="$attrs"
-          class="button"
+          class="button button-group__allowed"
           role="button"
           tabindex="0"
           :class="{'button-outlined' : isOutlined, 'button-filled' : isFilled}">
@@ -29,5 +29,5 @@
 </script>
 
 <style scoped lang="scss">
-  @import "src/scss/design/buttons";
+  @import "src/styles/design/button/style";
 </style>

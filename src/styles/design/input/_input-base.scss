@@ -1,0 +1,46 @@
+.input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input__input-tag:-webkit-autofill,
+.input__input-tag:-webkit-autofill:hover,
+.input__input-tag:-webkit-autofill:focus,
+.input__input-tag:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 40px var(--color-background) inset !important;
+}
+
+.input__horizontal-content,
+.input__input-tag {
+  border-radius: var(--input__border-radius, var(--border-radius__small));
+}
+
+.input__horizontal-content {
+  display: flex;
+  flex-direction: row;
+  margin-top: var(--margin__small-xxx);
+  margin-bottom: var(--margin__small-xx);
+  border: 1px solid var(--input__border-color, var(--color-input__border));
+  background-color: var(--input__background-color, var(--color-input__background));
+}
+
+.input__input-tag {
+  color: var(--color-font__content);
+  -webkit-text-fill-color: var(--color-font__content);
+  background: transparent;
+  border-width: 0;
+  width: 100%;
+  padding: var(--padding__medium) var(--padding__large);
+}
+
+.input__label {
+  color: var(--color-font__secondary);
+  font-size: var(--font-size__small-x);
+}
+
+label[data-required='true']:before, .input-text__label-required {
+  content: '*';
+  color: var(--color-font__required);
+}
