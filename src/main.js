@@ -1,6 +1,9 @@
-import { createApp } from "vue";
+import {createApp} from "vue";
 import AppLayout from "./layouts/AppLayout";
+
 import {EventBus} from "./services/event-bus/EventBus";
+import {NotificationService} from "./services/notification/NotificationService";
+
 import router from "./router/router";
 import store from './store';
 import './styles/global/global.scss';
@@ -12,6 +15,8 @@ app.use(router);
 app.use(store);
 
 app.config.globalProperties.$eventBus = eventBus;
+app.config.globalProperties.$notification = NotificationService;
+
 app.config.errorHandler = (message, vm, trace) => globalErrorHandler(message, vm, trace);
 
 app.mount('#app');

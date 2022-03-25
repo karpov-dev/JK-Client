@@ -36,6 +36,13 @@ const uiConstants = {
       common: 'common',
       default: 'default'
     }
+  },
+
+  globalEvents: {
+    notification: {
+      show: 'show',
+      hide: 'hide'
+    }
   }
 }
 

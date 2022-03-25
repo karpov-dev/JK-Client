@@ -4,16 +4,27 @@ $notification__close-size: 12px;
 $notification__close-region: 20px;
 
 .notification {
+  position: relative;
   margin: auto;
-  width: var(--notification__width, 22%);
-  min-width: 300px;
-  padding: var(--notification__padding, 5px 10px);
-  border: var(--notification__border, 0);
-  border-radius: var(--notification__border-radius, var(--border-radius__medium));
+  padding: 5px 10px;
+  border: 1px solid var(--notification__background-color);
+  border-radius: var(--border-radius__medium);
   user-select: none;
-  background-color: var(--notification__background-color);
+  background-color: transparent;
   color: var(--color-notification__font);
   z-index: 100;
+  overflow: hidden;
+  backdrop-filter: blur(0.3rem);
+}
+
+.notification::before {
+  @include set-absolute-position(-50%, -50%, auto, auto);
+  @include set-size(200%, 200%);
+  content: '';
+  position: absolute;
+  background-color: var(--notification__background-color);
+  border-radius: var(--border-radius__medium);
+  opacity: 0.08;
 }
 
 .notification__content {
@@ -39,8 +50,8 @@ $notification__close-region: 20px;
 
 .notification__title {
   text-align: center;
-  font-size: var(--notification-title__font-size, var(--font-size__large-x));
-  font-family: var(--notification-title__font-famaly, var(--font-famaly__viga));
+  font-size: var(--font-size__large-x);
+  font-family: var(--font-famaly__viga);
   padding-bottom: 4px;
 }
 

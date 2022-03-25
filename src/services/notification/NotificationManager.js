@@ -7,7 +7,6 @@ class NotificationManager {
   add(notification) {
     if (!Notification.isNotification(notification)) return;
 
-    notification.id = +(new Date()).getTime();
     notification.timerId = setTimeout(() => {this.remove(notification.id)}, notification.timeout);
 
     this.notifications.push(notification);

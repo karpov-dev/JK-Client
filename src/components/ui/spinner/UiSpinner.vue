@@ -51,6 +51,7 @@
     left: 0;
     border-radius: var(--border-radius__medium);
     z-index: 100;
+    backdrop-filter: blur(0.08rem);
   }
 
   .spinner {

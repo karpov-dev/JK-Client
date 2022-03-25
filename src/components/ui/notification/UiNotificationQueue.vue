@@ -4,46 +4,44 @@
       <transition-group name="fade">
 
         <div v-for="notification in notificationManager.notifications" :key="notification.id" class="notification-queue__toast-container top-center">
-          <ui-notification :notification="notification" @on-close="onClose"/>
+          <ui-notification :notification="notification" @on-close="this.notificationManager.remove($event.id)"/>
         </div>
 
       </transition-group>
     </div>
   </div>
-  <ui-button class="button-color__warning" @click="add">Add notification</ui-button>
 </template>
 
 <script>
-  import {Notification} from "../../../services/notification/Notification";
   import {NotificationManager} from "../../../services/notification/NotificationManager";
+  import {Notification} from "../../../services/notification/Notification";
+  import {uiConstants} from "../../../services/constants/ui.constants";
   import UiNotification from "./UiNotification";
-  import UiButton from "../button/UiButton";
   import UiTransitionGroup from "../UiTransitionGroup";
+  import UiButton from "../button/UiButton";
 
   export default {
     name: "UiNotificationQueue",
 
-    components: {UiTransitionGroup, UiButton, UiNotification},
+    components: {
+      UiButton,
+      UiTransitionGroup,
+      UiNotification
+    },
+
+    mounted() {
+      this.$eventBus.subscribe(uiConstants.globalEvents.notification.show, (notification) => {
+        this.notificationManager.add(notification);
+      });
+
+      this.$eventBus.subscribe(uiConstants.globalEvents.notification.hide, (id) => {
+        this.notificationManager.remove(id);
+      });
+    },
 
     data() { return {
       notificationManager: new NotificationManager(),
     }},
-
-    mounted() {
-      this.notificationManager = new NotificationManager();
-      this.$eventBus.subscribe('on-change-theme', this.add)
-    },
-
-    methods: {
-      add() {
-        const notification = new Notification('Success', 'You logged success', 'success', 3000);
-        this.notificationManager.add(notification);
-      },
-
-      onClose(event) {
-        this.notificationManager.remove(event.id);
-      }
-    }
   }
 </script>
 
@@ -56,7 +54,9 @@
     left: 0;
     right: 0;
     margin: auto;
-    width: fit-content;
+    width: 22%;
+    min-width: 100px;
+    z-index: 1000;
   }
 
   .notification-queue__container {

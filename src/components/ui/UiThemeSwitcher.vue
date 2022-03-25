@@ -29,6 +29,8 @@
   import store from "../../store";
   import UiSelectButton from "./input/UiSelectButton";
   import UiButtonGroup from "./button/UiButtonGroup";
+  import {uiConstants} from "../../services/constants/ui.constants";
+  import {Notification} from "../../services/notification/Notification";
 
   export default {
     name: "UiThemeSwitcher",
@@ -36,8 +38,6 @@
     methods: {
       onChangeTheme(event) {
         store.commit("theme/setTheme", event.target.value);
-
-        this.$eventBus.push('on-change-theme', event.target.value);
       },
 
       initSelectedTheme() {

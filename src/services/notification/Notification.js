@@ -1,15 +1,15 @@
+const NOTIFICATION_VARIANTS = {
+  default: 'default',
+  success: 'success',
+  warning: 'warning',
+  danger: 'danger',
+  info: 'info'
+}
+
 class Notification {
 
   static isNotification(notification) {
     return notification instanceof this;
-  }
-
-  VARIANTS = {
-    default: 'default',
-    success: 'success',
-    warning: 'warning',
-    danger: 'danger',
-    info: 'info'
   }
 
   id = null;
@@ -17,11 +17,13 @@ class Notification {
 
   title = null;
   description = null;
-  variant = this.VARIANTS.default;
-  timeout = 2000;
+  variant = NOTIFICATION_VARIANTS.default;
+  timeout = 6000;
   isClosable = true;
 
-  constructor(title, description, variant, timeout=2000, isClosable=true) {
+  constructor(title, description, variant, timeout=6000, isClosable=true) {
+    this.id = +(new Date()).getTime();
+
     this.title = title;
     this.description = description;
     this.variant = variant;
@@ -33,4 +35,4 @@ class Notification {
   get id() { return this.id; }
 }
 
-export {Notification}
+export {Notification, NOTIFICATION_VARIANTS}

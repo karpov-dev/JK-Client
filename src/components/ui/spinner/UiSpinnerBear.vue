@@ -39,6 +39,7 @@ export default {
     background-position: 25px 10px, 55px 10px, 36px 44px, 50% 30px, 50% 85px,
     50% 50px, 50% 22px, 50% 45px;
     animation: faceLift 3s linear infinite alternate;
+    z-index: 200;
   }
   .loader:before {
     content: "";
@@ -53,6 +54,7 @@ export default {
     background-size: 65px 65px;
     background-position: 0px 12px, 145px 12px;
     animation: earLift 3s linear infinite alternate;
+    z-index: 200;
   }
 
   @keyframes faceLift {

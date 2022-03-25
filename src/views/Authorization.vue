@@ -5,7 +5,6 @@
    </template>
 
    <flow-sign-in-switcher></flow-sign-in-switcher>
-   <ui-notification-queue></ui-notification-queue>
  </form-single-view>
 
 </template>

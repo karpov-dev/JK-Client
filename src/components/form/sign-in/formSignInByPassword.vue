@@ -23,6 +23,7 @@
   import UiButton from "../../ui/button/UiButton";
   import UiSpinner from "../../ui/spinner/UiSpinner";
   import {ServerApi} from "../../../services/api/ServerApi";
+  import {Notification, NOTIFICATION_VARIANTS} from "../../../services/notification/Notification";
   import UiCard from "../../ui/card/UiCard";
   import UiCardContent from "../../ui/card/UiCardContent";
 
@@ -71,6 +72,7 @@
 
       signInFailed(error) {
         const responseMessage = error.response.data.message;
+        this.$notification.show(new Notification('Opss...', responseMessage, NOTIFICATION_VARIANTS.danger, 60000 ), this);
 
         switch (responseMessage) {
           case 'ERROR:USER-NOT_FOUND': {
