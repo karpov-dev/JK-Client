@@ -14,10 +14,8 @@
 
 <script>
   import {NotificationManager} from "../../../services/notification/NotificationManager";
-  import {Notification} from "../../../services/notification/Notification";
   import {uiConstants} from "../../../services/constants/ui.constants";
   import UiNotification from "./UiNotification";
-  import UiTransitionGroup from "../UiTransitionGroup";
   import UiButton from "../button/UiButton";
 
   export default {
@@ -25,7 +23,6 @@
 
     components: {
       UiButton,
-      UiTransitionGroup,
       UiNotification
     },
 
@@ -54,8 +51,8 @@
     left: 0;
     right: 0;
     margin: auto;
-    width: 22%;
-    min-width: 100px;
+    width: 25%;
+    min-width: 300px;
     z-index: 1000;
   }
 

@@ -27,5 +27,5 @@
 </script>
 
 <style scoped lang="scss">
-
+  @import "src/styles/design/select/style";
 </style>

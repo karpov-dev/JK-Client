@@ -1,58 +1,66 @@
 <template>
-  <ui-card-form title="Sign Up">
-    <template v-slot:description>
-      Already have an Account?
-      <a href="javascript:void(0);">Sign In</a>
-    </template>
+  <ui-input name="firstName"
+            label="First Name"
+            placeholder="Billie"
+            v-model:value="user.firstName"
+            required="true"
+            ref="firstName"
+  ></ui-input>
 
-    <div class="sign-up__initials">
-      <ui-input name="firstName"
-                label="First Name"
-                :value="user.firstName"
-                @input="onInput"
-      ></ui-input>
+  <ui-input name="lastName"
+            label="Last Name"
+            placeholder="Armstrong"
+            v-model:value="user.lastName"
+            required="true"
+            ref="lastName"
+  ></ui-input>
 
-      <ui-input name="lastName"
-                label="Last Name"
-                :value="user.lastName"
-                @input="onInput"
-      ></ui-input>
-    </div>
+  <ui-input-email name="email"
+                  label="Email"
+                  v-model:value="user.email"
+                  required="true"
+                  ref="email"
+  ></ui-input-email>
 
-    <ui-input-email name="email"
-                    label="Email"
-                    :value="user.email"
-                    @input="onInput"
-    ></ui-input-email>
+  <ui-input-password name="password"
+                     label="Password"
+                     v-model:value="user.password"
+                     required="true"
+                     ref="password"
+  ></ui-input-password>
 
-    <ui-input-password name="password"
-                       label="Password"
-                       :value="user.password"
-                       @input="onInput"
-    ></ui-input-password>
-
-    <ui-button class="button-color__sign-up" @click="onSignUp">Sign Up</ui-button>
-  </ui-card-form>
+  <ui-button class="button-color__success" @click="onSignUp">Sign Up</ui-button>
 </template>
 
 <script>
-  import UiCardForm from "../../ui/card/UiCardForm";
   import UiInput from "../../ui/input/UiInput";
   import UiInputEmail from "../../ui/input/UiInputEmail";
   import UiInputPassword from "../../ui/input/UiInputPassword";
+  import UiSelectStandard from "../../ui/input/UiSelectStandard";
   import UiButton from "../../ui/button/UiButton";
-  import UiSpinner from "../../ui/spinner/UiSpinner";
-  import {ServerApi} from "../../../services/api/ServerApi";
+  import {reportValidity} from "../../../services/validation.service";
+  import {ServerApi} from "../../../services/server/ServerApi";
+  import {CODES} from "@jira-killer/error-codes";
+  import {getErrorCode} from "../../../services/http/Http";
 
   export default {
     name: "formSignUp",
-    components: {UiSpinner, UiButton, UiInputPassword, UiInputEmail, UiInput, UiCardForm},
+
+    components: {
+      UiButton,
+      UiSelectStandard,
+      UiInputPassword,
+      UiInputEmail,
+      UiInput
+    },
+
     props: {
       firstName: String,
       lastName: String,
       email: String,
       password: String
     },
+
     data() { return {
       user: {
         firstName: this.firstName,
@@ -61,39 +69,40 @@
         password: this.password
       }
     }},
+
     methods: {
-      onInput(event) { this.user[event.target.name] = event.target.value; },
-
       onSignUp() {
-        this.$emit('on-loading');
+        if (!reportValidity([this.$refs.firstName, this.$refs.lastName, this.$refs.email, this.$refs.password])) return false;
+        this.loading(true);
 
-        ServerApi.api.user.signUp.call(this.user)
-            .then(() => this.signUpSuccess())
-            .catch(error => this.signUpFailed(error))
-            .finally(() => this.$emit('on-loading-done'));
+        ServerApi.api.user.signUp.call(...Object.values(this.user))
+            .then(response => this.success(response))
+            .catch(error => this.error(error))
+            .finally(() => this.loading(false));
       },
 
-      signUpSuccess() {
-        this.$emit('on-success-sign-up', this.user);
+      success(response) {
+        this.$emit('on-success', {response, user: this.user});
       },
 
-      signUpFailed(error) {
-        console.log(error);
+      error(error) {
+        switch (getErrorCode(error)) {
+          case CODES.USER.DUPLICATE: return this.duplicateError(error);
+          default: return  this.unknownError(error);
+        }
+      },
+
+      duplicateError(error) {
+        this.$emit('on-user-duplicate-error', {error, user: this.user});
+      },
+
+      unknownError(error) {
+        this.$emit('on-unknown-error', {error, user: this.user});
+      },
+
+      loading(state) {
+        this.$emit('on-loading', state)
       }
     }
   }
 </script>
-
-<style scoped>
-  .sign-up__initials {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  @media screen and (min-width: 800px) {
-    .sign-up__initials {
-      flex-direction: row;
-    }
-  }
-</style>

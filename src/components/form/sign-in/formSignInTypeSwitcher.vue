@@ -1,67 +1,71 @@
 <template>
-  <ui-card-form title="Sign In">
-    <template v-slot:description>
-      <label>Don't have an account? </label>
-      <a href="javascript:void(0);" @click="$emit('on-to-sign-up')">Sign Up</a>
-    </template>
+  <ui-card-content>
+    <transition name="fade">
+      <form-sign-in-by-password v-if="localSelectedType === FormSignInByPassword.name"
+                                class="top-left"
+                                :email="user.email"
+                                :password="user.password"
+                                @on-success="$emit('on-password-way-success', $event)"
+                                @on-failed="$emit('on-password-way-failed', $event)"
+                                @on-inactive-user-error="$emit('on-password-way-user-inactive-error', $event)"
+                                @on-wrong-password-error="$emit('on-password-way-wrong-password-error', $event)"
+                                @on-user-not-found="$emit('on-password-way-user-not-found', $event)"
+                                @on-server-error="$emit('on-password-way-server-error', $event)"
+                                @on-loading="$emit('on-loading', $event)"
+                                @on-input="onInput"
+      ></form-sign-in-by-password>
+    </transition>
 
-    <form-sign-in-by-password v-if="formsVisibility[FormSignInByPassword.name]"
-                              @on-loading="this.isLoading = true"
-                              @on-loading-done="this.isLoading = false"
-                              @on-success="$emit('on-success-sign-in')"
-                              @on-error-not-found="$emit('on-error-user-not-found')"
-                              @on-error-inactive="$emit('on-error-user-inactive')"/>
-
-    <form-security-code-send v-if="formsVisibility[FormSecurityCodeSend.name]"
-                             :method="uiConstants.securityCode.method.email"
-                             :code-type="uiConstants.securityCode.codeType.authorization"
-                             @on-loading="this.isLoading = true"
-                             @on-loading-done="this.isLoading = false"
-                             @on-success-send="$emit('on-success-code-send', $event)"
-                             @on-error-send="$emit('on-error-code-send')"/>
+    <transition name="fade">
+      <form-security-code-send v-if="localSelectedType === FormSecurityCodeSend.name"
+                               class="top-right"
+                               :email="user.email"
+                               :codeType="getSecurityCodeCodeType"
+                               @on-success="$emit('on-email-way-send-success', $event)"
+                               @on-server-error="$emit('on-email-way-server-error', $event)"
+                               @on-loading="$emit('on-loading', $event)"
+                               @on-input="onInput"
+      ></form-security-code-send>
+    </transition>
 
     <ui-separator-line-text>VIA</ui-separator-line-text>
 
     <ui-button-group>
-      <ui-select-button label="Password"
-                        name="sign-in-variant"
+      <ui-select-button name="signin-variant"
+                        class="button-color__select-orange"
+                        label="Password"
                         type="radio"
-                        class="button-color__sign-in-password"
                         :value="FormSignInByPassword.name"
-                        :checked="getVisibleFormName === FormSignInByPassword.name"
-                        @change="changeVisibleFormTo(FormSignInByPassword.name)"/>
+                        :checked="localSelectedType === FormSignInByPassword.name"
+                        @change="onChangeForm"/>
 
-      <ui-select-button label="Email Code"
-                        name="sign-in-variant"
+      <ui-select-button name="signin-variant"
+                        class="button-color__select-red"
+                        label="Email"
                         type="radio"
-                        class="button-color__sign-in_email-code"
                         :value="FormSecurityCodeSend.name"
-                        :checked="getVisibleFormName === FormSecurityCodeSend.name"
-                        @change="changeVisibleFormTo(FormSecurityCodeSend.name)"/>
+                        :checked="localSelectedType === FormSecurityCodeSend.name"
+                        @change="onChangeForm"/>
     </ui-button-group>
-
-    <ui-spinner :is-show="isLoading"></ui-spinner>
-  </ui-card-form>
+  </ui-card-content>
 </template>
 
 <script>
   import FormSignInByPassword from "./formSignInByPassword";
-  import FormSecurityCodeSend from "../security-code/formSecurityCodeSend";
   import UiSeparatorLineText from "../../ui/separator/UiSeparatorLineText";
   import UiButtonGroup from "../../ui/button/UiButtonGroup";
   import UiSelectButton from "../../ui/input/UiSelectButton";
   import UiCardForm from "../../ui/card/UiCardForm";
-  import UiSpinner from "../../ui/spinner/UiSpinner";
-  import {isContainElement} from "../../../services/arrays.service";
+  import UiCardContent from "../../ui/card/UiCardContent";
   import {uiConstants} from "../../../services/constants/ui.constants";
-
+  import FormSecurityCodeSend from "../security-code/formSecurityCodeSend";
 
   export default {
     name: "formSignInTypeSwitcher",
 
     components: {
       FormSecurityCodeSend,
-      UiSpinner,
+      UiCardContent,
       UiCardForm,
       UiSelectButton,
       UiButtonGroup,
@@ -70,38 +74,46 @@
     },
 
     props: {
-      startForm: {
+      openForm: {
         type: String,
-        default: FormSignInByPassword.name,
-        validator(value) { return isContainElement(value, [FormSignInByPassword.name, FormSecurityCodeSend.name]); }
-      }
+        default: FormSignInByPassword.name
+      },
+      email: String,
+      password: String
     },
 
     data() { return {
-      isLoading: false,
-      formsVisibility: {
-        [FormSignInByPassword.name]: this.startForm === FormSignInByPassword.name,
-        [FormSecurityCodeSend.name]: this.startForm === FormSecurityCodeSend.name
-      },
-      FormSignInByPassword,
       FormSecurityCodeSend,
-      uiConstants
+      FormSignInByPassword,
+      localSelectedType: this.openForm,
+      user: {
+        email: this.email,
+        password: this.password
+      }
     }},
 
     methods: {
-      changeVisibleFormTo(formName) {
-        Object.keys(this.formsVisibility).forEach(key => this.formsVisibility[key] = key === formName)
+      onInput(event) {
+        this.user[event.target.name] = event.target.value;
+        this.$emit('on-input', event);
       },
+
+      onChangeForm(event) { this.localSelectedType = event.target.value; }
     },
 
     computed: {
-      getVisibleFormName() {
-        return Object.keys(this.formsVisibility).find(key => this.formsVisibility[key] === true);
-      }
+      getSecurityCodeCodeType() { return uiConstants.securityCode.codeType.userActivation; }
     }
   }
 </script>
 
 <style scoped lang="scss">
+  .fade-leave-active {
+    display: none;
+  }
 
+  .fade-leave-active,
+  .fade-enter-active {
+    animation-duration: var(--transition-duration__medium);
+  }
 </style>

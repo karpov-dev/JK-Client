@@ -1,0 +1,4 @@
+@mixin set--color($color) {
+  color: $color;
+  -webkit-text-fill-color: $color;
+}

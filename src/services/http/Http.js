@@ -12,7 +12,7 @@ class Http {
 
   static HEADER = {
     authorization: 'Authorization',
-    userAgent: 'User-Agent'
+    userAgent: 'GuestUser-Agent'
   }
 
   static STATUS = {
@@ -72,4 +72,8 @@ class Http {
 
 }
 
-export { Http }
+const getErrorCode = (error) => {
+  return error?.response?.data?.code;
+}
+
+export { Http, getErrorCode }

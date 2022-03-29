@@ -42,12 +42,11 @@
     align-items: flex-start;
     grid-column: 2;
     grid-row: 2;
-    width: 100%;
   }
 
   .form__grid--content-item {
     max-width: 500px;
-    min-width: 500px;
+    min-width: 300px;
     width: 100%;
   }
 

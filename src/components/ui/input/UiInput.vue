@@ -1,31 +1,66 @@
 <template>
-  <div class="input input-color__standard">
-    <slot name="over">
-      <label v-if="label" class="input__label" :data-required="required">{{label}}</label>
-    </slot>
+  <div class="input">
+    <label class="input-label" :data-required="$attrs?.required">{{label}}</label>
 
-    <div class="input__horizontal-content">
-      <slot name="before"></slot>
-      <input class="input__input-tag" v-bind="$attrs" v-model="inputValue">
-      <slot name="after"></slot>
+    <div class="input-wrapper">
+      <div class="input-before">
+        <slot name="before"></slot>
+      </div>
+
+      <div class="input-over">
+        <slot name="over"></slot>
+      </div>
+
+      <input ref="input"
+             :class="{'input-invalid': validationMessage}"
+             v-bind="$attrs"
+             :placeholder="$attrs?.placeholder ? $attrs.placeholder : ' '"
+             :value="value"
+             @input="$emit('update:value', $event.target.value)"
+             @blur="onBlur"
+      >
+
+      <div class="input-under">
+        <slot name="under"></slot>
+      </div>
+
+      <div class="input-after">
+        <slot name="after"></slot>
+      </div>
     </div>
 
-    <slot name="under"></slot>
+    <label v-if="validationMessage" class="input-label__error">{{validationMessage}}</label>
   </div>
-
 </template>
 
 <script>
   export default {
     name: "UiInput",
+
     props: {
       label: String,
-      required: Boolean,
-      value: String
+      value: String,
     },
+
     data() { return {
-      inputValue: this.value
-    }}
+      validationMessage: ''
+    }},
+
+    methods: {
+      onBlur() {
+        this.validationMessage = this.$refs.input.validationMessage;
+      },
+
+      reportValidity() {
+        this.$refs.input.focus();
+        this.$refs.input.blur();
+        return this.checkValidity();
+      },
+
+      checkValidity() { return this.$refs.input.checkValidity(); },
+
+      setCustomValidity(error) { return this.$refs.input.setCustomValidity(error); }
+    },
   }
 </script>
 

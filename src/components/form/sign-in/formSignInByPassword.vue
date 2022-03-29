@@ -2,13 +2,17 @@
   <ui-card-content>
     <ui-input-email name="email"
                     label="Email"
-                    :value="user.email"
+                    v-model:value="user.email"
+                    required="true"
+                    ref="email"
                     @input="onInput"
     ></ui-input-email>
 
     <ui-input-password name="password"
                        label="Password"
-                       :value="user.password"
+                       v-model:value="user.password"
+                       required="true"
+                       ref="password"
                        @input="onInput"
     ></ui-input-password>
 
@@ -17,29 +21,31 @@
 </template>
 
 <script>
-  import UiCardForm from "../../ui/card/UiCardForm";
   import UiInputEmail from "../../ui/input/UiInputEmail";
   import UiInputPassword from "../../ui/input/UiInputPassword";
   import UiButton from "../../ui/button/UiButton";
-  import UiSpinner from "../../ui/spinner/UiSpinner";
-  import {ServerApi} from "../../../services/api/ServerApi";
-  import {Notification, NOTIFICATION_VARIANTS} from "../../../services/notification/Notification";
-  import UiCard from "../../ui/card/UiCard";
   import UiCardContent from "../../ui/card/UiCardContent";
 
-  //TODO: do after sign up
+  import {ServerApi} from "../../../services/server/ServerApi";
+  import {reportValidity} from "../../../services/validation.service";
+  import {CODES as SERVER_ERROR_CODES} from "@jira-killer/error-codes";
+  import {ServerError} from "../../../services/server/ServerError";
+  import {ServerErrorHandler} from "../../../services/server/ServerErrorHandler";
+
+  const errorEventByErrorCode = {
+    [SERVER_ERROR_CODES.USER.INACTIVE]: 'on-inactive-user-error',
+    [SERVER_ERROR_CODES.USER.WRONG_PASSWORD]: 'on-wrong-password-error',
+    [SERVER_ERROR_CODES.USER.NOT_FOUND]: 'on-user-not-found'
+  }
 
   export default {
     name: "formSignInByPassword",
 
     components: {
       UiCardContent,
-      UiCard,
-      UiSpinner,
       UiButton,
       UiInputPassword,
       UiInputEmail,
-      UiCardForm
     },
 
     props: {
@@ -47,52 +53,39 @@
       password: String
     },
 
-    data() {return {
+    data() { return {
       user: {
         email: this.email,
         password: this.password
-      },
+      }
     }},
 
     methods: {
-      onInput(event) { this.user[event.target.name] = event.target.value; },
+      onInput(event) { this.$emit('on-input', event); },
 
       onSignIn() {
-        this.$emit('on-loading');
+        if(!reportValidity([this.$refs.email, this.$refs.password])) return false;
+        this.loading(true);
 
         ServerApi.api.user.signInByPassword.call(this.user.email, this.user.password)
-            .then(response => this.signInSuccess(response))
-            .catch(error => this.signInFailed(error))
-            .finally(() => this.$emit('on-loading-done'));
+            .then(response => this.success(response))
+            .catch(error => this.error(error))
+            .finally(() => this.loading(false));
       },
 
-      signInSuccess(response) {
-        this.$emit('on-sign-in-success', this.user);
+      error(error) {
+        const errorCode = ServerError.getErrorCodeByError(error);
+        const handler = ServerErrorHandler.getErrorHandlerByErrorCode(errorCode, errorEventByErrorCode);
+        handler.bind(this)(errorCode, errorEventByErrorCode[errorCode]);
       },
 
-      signInFailed(error) {
-        const responseMessage = error.response.data.message;
-        this.$notification.show(new Notification('Opss...', responseMessage, NOTIFICATION_VARIANTS.danger, 60000 ), this);
-
-        switch (responseMessage) {
-          case 'ERROR:USER-NOT_FOUND': {
-            this.$emit('on-error-not-found', this.user);
-            break;
-          }
-          case 'ERROR:USER-INACTIVE': {
-            this.$emit('on-error-inactive', this.user);
-            break;
-          }
-        }
+      success(response) {
+        this.$emit('on-success', {response, user: this.user});
       },
 
-      onToSignUp() {
-        this.$emit('on-to-sign-up', this.user);
+      loading(state) {
+        this.$emit('on-loading', state);
       },
-    }
+    },
   }
 </script>
-
-<style scoped lang="scss">
-
-</style>

@@ -7,14 +7,14 @@ $notification__close-region: 20px;
   position: relative;
   margin: auto;
   padding: 5px 10px;
-  border: 1px solid var(--notification__background-color);
-  border-radius: var(--border-radius__medium);
+  z-index: 100;
   user-select: none;
   background-color: transparent;
-  color: var(--color-notification__font);
-  z-index: 100;
   overflow: hidden;
   backdrop-filter: blur(0.3rem);
+  border: 1px solid var(--notification__background-color);
+  border-radius: var(--border-radius__medium);
+  color: var(--color-notification__font);
 }
 
 .notification::before {
@@ -22,9 +22,9 @@ $notification__close-region: 20px;
   @include set-size(200%, 200%);
   content: '';
   position: absolute;
+  opacity: 0.08;
   background-color: var(--notification__background-color);
   border-radius: var(--border-radius__medium);
-  opacity: 0.08;
 }
 
 .notification__content {
@@ -50,9 +50,9 @@ $notification__close-region: 20px;
 
 .notification__title {
   text-align: center;
+  padding-bottom: 4px;
   font-size: var(--font-size__large-x);
   font-family: var(--font-famaly__viga);
-  padding-bottom: 4px;
 }
 
 .notification__description {

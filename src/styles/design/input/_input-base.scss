@@ -1,46 +1,79 @@
+@import "src/styles/global/mixins-properties";
+
 .input {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
-.input__input-tag:-webkit-autofill,
-.input__input-tag:-webkit-autofill:hover,
-.input__input-tag:-webkit-autofill:focus,
-.input__input-tag:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 40px var(--color-background) inset !important;
-}
-
-.input__horizontal-content,
-.input__input-tag {
-  border-radius: var(--input__border-radius, var(--border-radius__small));
-}
-
-.input__horizontal-content {
-  display: flex;
-  flex-direction: row;
-  margin-top: var(--margin__small-xxx);
-  margin-bottom: var(--margin__small-xx);
-  border: 1px solid var(--input__border-color, var(--color-input__border));
-  background-color: var(--input__background-color, var(--color-input__background));
-}
-
-.input__input-tag {
-  color: var(--color-font__content);
-  -webkit-text-fill-color: var(--color-font__content);
-  background: transparent;
-  border-width: 0;
-  width: 100%;
-  padding: var(--padding__medium) var(--padding__large);
-}
-
-.input__label {
+.input .input-label {
   color: var(--color-font__secondary);
   font-size: var(--font-size__small-x);
+  padding-bottom: 5px;
 }
 
-label[data-required='true']:before, .input-text__label-required {
-  content: '*';
-  color: var(--color-font__required);
+.input .input-label__error {
+  font-size: var(--font-size__small-xx);
+  padding: 2px 4px;
+  color: var(--color-font__red);
+}
+
+.input .input-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
+  background-color: var(--color-input__background);
+  border-radius: var(--border-radius__medium);
+  border-width: 0;
+}
+
+.input .input-wrapper input,
+.input .input-wrapper input:required {
+  grid-column: 2;
+  grid-row: 2;
+  background-color: transparent;
+  color: var(--color-font__content);
+  border: 1px solid var(--color-input__border);
+  padding: 7px 12px;
+  border-radius: var(--border-radius__medium);
+}
+
+.input .input-wrapper .input-over {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.input .input-wrapper .input-under {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.input .input-wrapper .input-before {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.input .input-wrapper .input-after {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.input .input-label[data-required='true']::before {
+  content: '• ';
+  color: red;
+}
+
+.input .input-wrapper input:-webkit-autofill,
+.input .input-wrapper input:-webkit-autofill:hover,
+.input .input-wrapper input:-webkit-autofill:focus,
+.input .input-wrapper input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 50px var(--color-input__background) inset !important;
+  -webkit-text-fill-color: var(--color-font__content);
+  border: 1px solid var(--color-input__border-autofill);
+}
+
+.input .input-wrapper .input-invalid:not(:focus) {
+  border: 1px solid var(--color-input__border-invalid) !important;
+  color: var(--color-input__border-invalid) !important;
 }

@@ -1,97 +1,64 @@
 <template>
   <ui-card-content>
-    <ui-input-email :label="getFieldDescribe.label"
-                    :name="getFieldDescribe.name"
-                    v-model="user.email"
+    <ui-input-email name="email"
+                    label="Email"
+                    v-model:value="localEmail"
+                    required="true"
+                    ref="input"
+                    @input="onInput"
     ></ui-input-email>
 
-    <ui-button class="button-color__next" @click="onSendCode">Send code</ui-button>
+    <ui-button class="button-color__next" @click="onSend">Send</ui-button>
   </ui-card-content>
 </template>
 
 <script>
   import UiCardContent from "../../ui/card/UiCardContent";
   import UiInputEmail from "../../ui/input/UiInputEmail";
-  import UiButtonGroup from "../../ui/button/UiButtonGroup";
   import UiButton from "../../ui/button/UiButton";
-  import {uiConstants} from "../../../services/constants/ui.constants";
-  import {isContainElement} from "../../../services/arrays.service";
-  import {ServerApi} from "../../../services/api/ServerApi";
-  import {Http} from "../../../services/http/Http";
+
+  import {reportValidity} from "../../../services/validation.service";
+  import {ServerApi} from "../../../services/server/ServerApi";
+  import {ServerError} from "../../../services/server/ServerError";
 
   export default {
     name: "formSecurityCodeSend",
 
-    components: {
-      UiButton,
-      UiButtonGroup,
-      UiInputEmail,
-      UiCardContent
-    },
+    components: {UiButton, UiInputEmail, UiCardContent},
 
     props: {
       email: String,
-      codeType: {
-        type: String,
-        required: true,
-        validator(value) { return isContainElement(value, Object.values(uiConstants.securityCode.codeType)); }
-      },
-      method: {
-        type: String,
-        required: true,
-        validator(value) { return isContainElement(value, Object.values(uiConstants.securityCode.method)); }
-      }
+      codeType: String
     },
 
     data() { return {
-      user: {
-        email: this.email
-      }
+      localEmail: this.email,
+      localCodeType: this.codeType
     }},
 
     methods: {
-      onSendCode() {
-        switch (this.method) {
-          case uiConstants.securityCode.method.email: {
-            this.sendToEmail(this.user.email);
-            break;
-          }
-          case uiConstants.securityCode.method.phone: {
-            this.sendToPhone();
-            break;
-          }
-        }
+      onInput(event) { this.$emit('on-input', event); },
+
+      onSend() {
+        if (!reportValidity([this.$refs.input])) return false;
+        this.loading(true);
+
+        ServerApi.api.code.send.email.call(this.localEmail, this.localCodeType)
+            .then(response => this.success(response))
+            .catch(error => this.error(error))
+            .finally(() => this.loading(false));
       },
 
-      sendToEmail(email) {
-        this.$emit('on-loading');
-
-        ServerApi.api.code.send.email.call(email, this.codeType)
-            .then(response => this.sendCodeSuccess(response))
-            .catch(error => this.sendCodeFailed(error))
-            .finally(() => this.$emit('on-loading-done'));
+      success(response) {
+        this.$emit('on-success', {response, email: this.email, codeType: this.codeType})
       },
 
-      sendToPhone() {
-        //TODO: Add phone support
+      error(error) {
+        this.$emit('on-server-error', ServerError.getErrorMessageByCode(ServerError.getErrorCodeByError(error)));
       },
 
-      sendCodeSuccess(response) {
-        if (response.status === Http.STATUS.CREATED) {
-          this.$emit('on-success-send', {email: this.user.email});
-        }
-      },
-
-      sendCodeFailed(error) {
-        this.$emit('on-error-send', error);
-      },
-    },
-
-    computed: {
-      getFieldDescribe() {
-        return (this.method === uiConstants.securityCode.method.email)
-            ? {label: 'Email', name: 'email'}
-            : {label: 'Phone', name: 'phone'}
+      loading(state) {
+        this.$emit('on-loading', state);
       }
     }
   }

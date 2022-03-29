@@ -33,3 +33,15 @@
 .button-color__next {
   --button__background-color: var(--color-button__next);
 }
+
+.button-color__select-blue {
+  --button__background-color: var(--color-button__common-accent);
+}
+
+.button-color__select-red {
+  --button__background-color: var(--color-button__danger-accent);
+}
+
+.button-color__select-orange {
+  --button__background-color: var(--color-button__warning-accent);
+}

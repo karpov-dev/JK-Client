@@ -1,6 +1,6 @@
 <template>
   <div class="button-group">
-    <slot :style="{background: red}"></slot>
+    <slot></slot>
   </div>
 </template>
 

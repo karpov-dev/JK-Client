@@ -1,7 +1,7 @@
 import {createApp} from "vue";
 import AppLayout from "./layouts/AppLayout";
 
-import {EventBus} from "./services/event-bus/EventBus";
+import {EventBus} from "./services/events/EventBus";
 import {NotificationService} from "./services/notification/NotificationService";
 
 import router from "./router/router";

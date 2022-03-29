@@ -1,8 +1,9 @@
 <template>
   <ui-card-content>
-    <ui-input-password label="Security Code"
+    <ui-input-password label="Security code"
                        v-model:value="localCode"
                        ref="input"
+                       pattern="[0-9]+"
                        required="true"
     ></ui-input-password>
 
@@ -22,9 +23,18 @@
 
   import {reportValidity} from "../../../services/validation.service";
   import {ServerApi} from "../../../services/server/ServerApi";
+  import {CODES as SERVER_ERROR_CODES} from "@jira-killer/error-codes";
+  import {ServerError} from "../../../services/server/ServerError";
+  import {ServerErrorHandler} from "../../../services/server/ServerErrorHandler";
+
+  const errorEventByErrorCode = {
+    [SERVER_ERROR_CODES.CODE.INVALID]: 'on-invalid-code-error',
+    [SERVER_ERROR_CODES.CODE.EXPIRED]: 'on-expired-code-error',
+    [SERVER_ERROR_CODES.CODE.WRONG_RELATED_TO]: 'on-wrong-related-to-error'
+  }
 
   export default {
-    name: "formSecurityCodeCheck",
+    name: "formSignUpActivateUser",
 
     components: {
       UiButton,
@@ -35,10 +45,6 @@
 
     props: {
       email: {
-        type: String,
-        required: true
-      },
-      codeType: {
         type: String,
         required: true
       },
@@ -58,23 +64,25 @@
         if (!reportValidity([this.$refs.input])) return false;
         this.loading(true);
 
-        ServerApi.api.code.check.call(this.email, this.codeType, Number(this.localCode))
+        ServerApi.api.user.activate.call(this.email, Number(this.localCode))
             .then(response => this.success(response))
             .catch(error => this.error(error))
             .finally(() => this.loading(false));
+      },
+
+      error(error) {
+        const errorCode = ServerError.getErrorCodeByError(error);
+        const handler = ServerErrorHandler.getErrorHandlerByErrorCode(errorCode, errorEventByErrorCode);
+        handler.bind(this)(errorCode, errorEventByErrorCode[errorCode]);
       },
 
       success(response) {
         this.$emit('on-success', response);
       },
 
-      error(error) {
-        this.$emit('on-error', error);
-      },
-
       loading(state) {
         this.$emit('on-loading', state);
-      }
+      },
     }
   }
 </script>

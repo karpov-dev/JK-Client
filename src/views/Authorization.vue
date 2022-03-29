@@ -4,79 +4,61 @@
      <ui-theme-switcher></ui-theme-switcher>
    </template>
 
-   <flow-sign-in-switcher></flow-sign-in-switcher>
+   <flow-sign-in v-if="localOpenForm === FlowSignIn.name"
+                 @on-success="onAuthSuccess"
+                 @on-to-sign-up="onChangeOpenFlowTo(FlowSignUp.name, $event)"
+   ></flow-sign-in>
+
+   <flow-sign-up v-if="localOpenForm === FlowSignUp.name"
+                 @on-to-sign-in="onChangeOpenFlowTo(FlowSignIn.name, $event)"
+   ></flow-sign-up>
+
  </form-single-view>
 
 </template>
 
 <script>
+  import FlowSignIn from "../components/form/sign-in/flowSignIn";
+  import FlowSignUp from "../components/form/sign-up/flowSignUp";
   import FormSingleView from "../components/form/single-view/formSingleView";
-  import { isComponent } from "../services/component.service";
   import UiThemeSwitcher from "../components/ui/UiThemeSwitcher";
-  import UiCard from "../components/ui/card/UiCard";
-  import UiCardForm from "../components/ui/card/UiCardForm";
-  import UiInput from "../components/ui/input/UiInput";
-  import FormSignInByPassword from "../components/form/sign-in/formSignInByPassword";
-  import FormSignUp from "../components/form/sign-up/formSignUp";
-  import FlowSignInSwitcher from "../components/form/sign-in/formSignInTypeSwitcher";
-  import FlowSignIn from "../components/flow/flowSignIn";
-  import FormSecurityCodeSend from "../components/form/security-code/formSecurityCodeSend";
-  import UiNotification from "../components/ui/notification/UiNotification";
-  import UiButton from "../components/ui/button/UiButton";
-  import UiNotificationQueue from "../components/ui/notification/UiNotificationQueue";
-
-  const FLOWS = {
-    authorization: 'authorization',
-    restorePassword: 'restorePassword'
-  }
+  import {Notification, NOTIFICATION_VARIANTS} from "../services/notification/Notification";
 
   export default {
     name: "Authorization",
+
     components: {
-      UiNotificationQueue,
-      UiButton,
-      UiNotification,
-      FormSecurityCodeSend,
-      FlowSignIn,
-      FlowSignInSwitcher,
-      FormSignUp,
-      FormSignInByPassword,
-      UiInput,
-      UiCardForm,
-      UiCard,
       UiThemeSwitcher,
-      FormSingleView
+      FormSingleView,
+      FlowSignUp,
+      FlowSignIn,
     },
+
     props: {
-      flow: {
+      openForm: {
         type: String,
-        default: FLOWS.authorization,
-        validator(value) { return Object.values(FLOWS).indexOf(value) !== -1; }
+        default: FlowSignUp.name
       },
-      firstName: String,
-      lastName: String,
-      email: String,
-      password: String
+      email: String
     },
-    data() {
-      return {
-        currentFlow: this.flow,
-        currentUser: {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password
-        }
-      }
-    },
+
+    data() { return {
+      localOpenForm: this.openForm,
+      localEmail: this.email,
+      FlowSignIn,
+      FlowSignUp
+    }},
+
     methods: {
-      switchFlowTo(flowName, event) {
-        Object.assign(this.currentUser, event);
-        this.currentFlow = FLOWS[flowName];
+      onChangeOpenFlowTo(name, event) {
+        this.localEmail = event.email;
+        this.localOpenForm = name;
+      },
+
+      onAuthSuccess() {
+        const notification = new Notification('Success', 'Success logged in', NOTIFICATION_VARIANTS.success);
+        this.$notification.show(notification, this);
       }
-    },
-    computed: {
-      flows() { return isComponent(this.currentFlow, FLOWS); }
     }
   }
 </script>

@@ -11,7 +11,7 @@ class ServerApi {
 
   static user = {
     signInByPassword: (email, password) => {
-      if (isHasEmptyParam(email, password)) throw new PropertyRequiredError({email, password});
+      if (isHasEmptyParam({email, password})) throw new PropertyRequiredError({email, password});
 
       return new Http()
         .useEndPoint(this.api.user.signInByPassword.url)
@@ -21,20 +21,32 @@ class ServerApi {
         .call();
     },
 
-    signUp: (user) => {
-      if(isHasEmptyParam(user)) throw new PropertyRequiredError(user);
+    signUp: (firstName, lastName, email, password) => {
+      if(isHasEmptyParam(firstName, lastName, email, password)) {
+        throw new PropertyRequiredError(firstName, lastName, email, password);
+      }
 
       return new Http()
         .useEndPoint(this.api.user.signUp.url)
         .useMethod(Http.METHOD.POST)
-        .usePayload(user)
+        .usePayload({firstName, lastName, email, password})
+        .call();
+    },
+
+    activate: (email, code) => {
+      if (isHasEmptyParam({email, code})) throw new PropertyRequiredError({email, code});
+
+      return new Http()
+        .useEndPoint(this.api.user.activate.url)
+        .useMethod(Http.METHOD.POST)
+        .usePayload({email, code})
         .call();
     }
   }
 
   static code = {
     send: (email, codeType) => {
-      if (isHasEmptyParam(email, codeType)) throw new PropertyRequiredError({email, codeType});
+      if (isHasEmptyParam(email, codeType)) throw new PropertyRequiredError(email, codeType);
 
       return new Http()
         .useEndPoint(this.api.code.send.email.url)
@@ -44,7 +56,7 @@ class ServerApi {
     },
 
     check: (email, codeType, code) => {
-      if (isHasEmptyParam(email, codeType, code)) throw new PropertyRequiredError({email, codeType, code});
+      if (isHasEmptyParam(email, codeType, code)) throw new PropertyRequiredError(email, codeType, code);
 
       return new Http()
         .useEndPoint(this.api.code.check.url)
@@ -65,6 +77,10 @@ const apiMapping = {
     signUp: {
       url: process.env.VUE_APP_SERVER_API + '/auth/user/signup',
       call: ServerApi.user.signUp
+    },
+    activate: {
+      url: process.env.VUE_APP_SERVER_API + '/auth/user/activate',
+      call: ServerApi.user.activate
     }
   },
   code: {
