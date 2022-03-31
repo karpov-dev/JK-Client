@@ -4,7 +4,7 @@ import { routes } from "./routes";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes: Object.values(routes)
 });
 
 middlewares.forEach(middleware => router.beforeEach(middleware));
