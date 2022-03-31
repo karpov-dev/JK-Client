@@ -33,6 +33,7 @@
   import FormSingleView from "../components/form/single-view/formSingleView";
   import UiThemeSwitcher from "../components/ui/UiThemeSwitcher";
   import {Notification, NOTIFICATION_VARIANTS} from "../services/notification/Notification";
+  import {routes} from "../router/routes";
 
   export default {
     name: "Authorization",
@@ -68,6 +69,8 @@
       onAuthSuccess() {
         const notification = new Notification('Success', 'Success logged in', NOTIFICATION_VARIANTS.success);
         this.$notification.show(notification, this);
+
+        this.$router.push(routes.workspaceHub.path);
       }
     },
 
