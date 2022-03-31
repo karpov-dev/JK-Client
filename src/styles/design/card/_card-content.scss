@@ -1,6 +1,19 @@
-.card-content {
+.card-content__header,
+.card-content__content,
+.card-content__footer {
+  background-color: inherit;
+}
+
+.card-content__header:not(:empty) {
+  padding-bottom: 10px;
+}
+
+.card-content__content {
   display: flex;
   flex-direction: column;
   gap: var(--card__gap, 10px);
-  background-color: inherit;
+}
+
+.card-content__footer:not(:empty) {
+  padding-top: 10px;
 }

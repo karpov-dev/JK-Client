@@ -20,8 +20,6 @@
 <style scoped lang="scss">
   .workspace-card {
     padding: 10px;
-    border: 1px solid gray;
-    border-radius: var(--border-radius__medium);
     text-align: center;
   }
 
