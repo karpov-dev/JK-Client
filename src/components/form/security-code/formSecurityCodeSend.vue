@@ -6,9 +6,13 @@
                     required="true"
                     ref="input"
                     @input="onInput"
+                    @blur="onInputBlur"
     ></ui-input-email>
 
-    <ui-button class="button-color__next" @click="onSend">Send</ui-button>
+    <slot name="send-button-section">
+      <ui-button class="button-color__next" @click="onSend">Send</ui-button>
+    </slot>
+
   </ui-card-content>
 </template>
 
@@ -20,6 +24,11 @@
   import {reportValidity} from "../../../services/validation.service";
   import {ServerApi} from "../../../services/server/ServerApi";
   import {ServerError} from "../../../services/server/ServerError";
+  import {API_ERROR_CODES} from "@jira-killer/constants";
+
+  const errorEventByErrorCode = {
+    [API_ERROR_CODES.USER.NOT_FOUND]: 'on-invalid-code-error',
+  }
 
   export default {
     name: "formSecurityCodeSend",
@@ -28,7 +37,7 @@
 
     props: {
       email: String,
-      codeType: String
+      codeType: String,
     },
 
     data() { return {
@@ -39,22 +48,20 @@
     methods: {
       onInput(event) { this.$emit('on-input', event); },
 
+      onInputBlur(event) { this.$emit('on-input-blur', event); },
+
       onSend() {
         if (!reportValidity([this.$refs.input])) return false;
         this.loading(true);
 
         ServerApi.api.code.send.email.call(this.localEmail, this.localCodeType)
             .then(response => this.success(response))
-            .catch(error => this.error(error))
+            .catch(error => ServerError.handleErrorResponse(error, errorEventByErrorCode, this))
             .finally(() => this.loading(false));
       },
 
       success(response) {
         this.$emit('on-success', {response, email: this.email, codeType: this.codeType})
-      },
-
-      error(error) {
-        this.$emit('on-server-error', ServerError.getErrorMessageByCode(ServerError.getErrorCodeByError(error)));
       },
 
       loading(state) {

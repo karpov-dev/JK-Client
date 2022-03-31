@@ -10,14 +10,24 @@ class ServerApi {
   }
 
   static user = {
-    signInByPassword: (email, password) => {
-      if (isHasEmptyParam({email, password})) throw new PropertyRequiredError({email, password});
+    signInByCredentials: (email, password) => {
+      if (isHasEmptyParam(email, password)) throw new PropertyRequiredError(email, password);
 
       return new Http()
-        .useEndPoint(this.api.user.signInByPassword.url)
+        .useEndPoint(this.api.user.signIn.credentials.url)
         .useMethod(Http.METHOD.POST)
         .usePayload({email, password})
         .useFingerPrint()
+        .call();
+    },
+
+    signInByCode: ({email, code}) => {
+      if (isHasEmptyParam(email, code)) throw new PropertyRequiredError(email, code);
+
+      return new Http()
+        .useEndPoint(this.api.user.signIn.code.url)
+        .useMethod(Http.METHOD.POST)
+        .usePayload({email, code})
         .call();
     },
 
@@ -33,13 +43,23 @@ class ServerApi {
         .call();
     },
 
-    activate: (email, code) => {
-      if (isHasEmptyParam({email, code})) throw new PropertyRequiredError({email, code});
+    activate: ({email, code}) => {
+      if (isHasEmptyParam(email, code)) throw new PropertyRequiredError(email, code);
 
       return new Http()
         .useEndPoint(this.api.user.activate.url)
         .useMethod(Http.METHOD.POST)
         .usePayload({email, code})
+        .call();
+    },
+
+    isActive: (email) => {
+      if (isHasEmptyParam(email)) throw new PropertyRequiredError(email);
+
+      return new Http()
+        .useEndPoint(this.api.user.isActive.url)
+        .useMethod(Http.METHOD.GET)
+        .useParamInUrl(email)
         .call();
     }
   }
@@ -55,13 +75,13 @@ class ServerApi {
         .call();
     },
 
-    check: (email, codeType, code) => {
-      if (isHasEmptyParam(email, codeType, code)) throw new PropertyRequiredError(email, codeType, code);
+    check: ({email, code}) => {
+      if (isHasEmptyParam(email, code)) throw new PropertyRequiredError(email, code);
 
       return new Http()
         .useEndPoint(this.api.code.check.url)
         .useMethod(Http.METHOD.POST)
-        .usePayload({email, codeType, code})
+        .usePayload({email, code})
         .call()
     }
   }
@@ -70,9 +90,15 @@ class ServerApi {
 const apiMapping = {
   url: process.env.VUE_APP_SERVER_API,
   user: {
-    signInByPassword: {
-      url: process.env.VUE_APP_SERVER_API + '/auth/user/signin',
-      call: ServerApi.user.signInByPassword
+    signIn: {
+      credentials: {
+        url: process.env.VUE_APP_SERVER_API + '/auth/user/signin/credentials',
+        call: ServerApi.user.signInByCredentials
+      },
+      code: {
+        url: process.env.VUE_APP_SERVER_API + '/auth/user/signin/code',
+        call: ServerApi.user.signInByCode
+      }
     },
     signUp: {
       url: process.env.VUE_APP_SERVER_API + '/auth/user/signup',
@@ -81,6 +107,10 @@ const apiMapping = {
     activate: {
       url: process.env.VUE_APP_SERVER_API + '/auth/user/activate',
       call: ServerApi.user.activate
+    },
+    isActive: {
+      url: process.env.VUE_APP_SERVER_API + '/users/active',
+      call: ServerApi.user.isActive
     }
   },
   code: {

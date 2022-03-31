@@ -70,6 +70,12 @@ class Http {
     return this;
   }
 
+  useParamInUrl(param) {
+    this.endPoint += '/' + param;
+
+    return this;
+  }
+
 }
 
 const getErrorCode = (error) => {

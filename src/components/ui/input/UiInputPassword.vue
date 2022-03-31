@@ -2,7 +2,7 @@
   <ui-input v-bind="$attrs"
             type="password"
             ref="input"
-            minlength="5"
+            minlength="6"
             maxlength="100"
             placeholder="◦◦◦◦◦◦◦◦◦◦◦◦◦"
   ></ui-input>

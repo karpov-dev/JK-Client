@@ -11,10 +11,7 @@
 @import "mixins";
 @import "mixins-properties";
 
-@import "../design/animations/bounce";
-@import "../design/animations/fade";
-@import "../design/animations/slideBlurred";
-@import "../design/animations/list";
+@import "../design/animations/fade-animation";
 
 *, *::before, *::after {
   box-sizing: border-box;

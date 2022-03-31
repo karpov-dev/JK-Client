@@ -9,10 +9,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@jira-killer/error-codes": "^1.0.3",
+    "@jira-killer/constants": "^1.0.0",
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
+    "i": "^0.3.7",
     "md5": "^2.3.0",
+    "npm": "^8.5.5",
     "register-service-worker": "^1.7.1",
     "ua-parser-js": "^1.0.2",
     "vue": "^3.2.28",

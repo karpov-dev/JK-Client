@@ -4,14 +4,24 @@
      <ui-theme-switcher></ui-theme-switcher>
    </template>
 
-   <flow-sign-in v-if="localOpenForm === FlowSignIn.name"
-                 @on-success="onAuthSuccess"
-                 @on-to-sign-up="onChangeOpenFlowTo(FlowSignUp.name, $event)"
-   ></flow-sign-in>
+   <transition name="fade">
+     <div v-if="isOpenSignIn" class="animation-fade-in-left animation-disable-leave">
+       <flow-sign-in :email="localEmail"
+                     @on-success="onAuthSuccess"
+                     @on-to-sign-up="onChangeFlowTo(FlowSignUp.name, $event)"
+       ></flow-sign-in>
+     </div>
+   </transition>
 
-   <flow-sign-up v-if="localOpenForm === FlowSignUp.name"
-                 @on-to-sign-in="onChangeOpenFlowTo(FlowSignIn.name, $event)"
-   ></flow-sign-up>
+
+   <transition name="fade">
+     <div v-if="isOpenSignUp" class="animation-fade-in-right animation-disable-leave">
+       <flow-sign-up :email="localEmail"
+                     @on-success="onAuthSuccess"
+                     @on-to-sign-in="onChangeFlowTo(FlowSignIn.name, $event)"
+       ></flow-sign-up>
+     </div>
+   </transition>
 
  </form-single-view>
 
@@ -37,7 +47,7 @@
     props: {
       openForm: {
         type: String,
-        default: FlowSignUp.name
+        default: FlowSignIn.name
       },
       email: String
     },
@@ -50,8 +60,8 @@
     }},
 
     methods: {
-      onChangeOpenFlowTo(name, event) {
-        this.localEmail = event.email;
+      onChangeFlowTo(name, event) {
+        this.localEmail = event?.email;
         this.localOpenForm = name;
       },
 
@@ -59,10 +69,12 @@
         const notification = new Notification('Success', 'Success logged in', NOTIFICATION_VARIANTS.success);
         this.$notification.show(notification, this);
       }
+    },
+
+    computed: {
+      isOpenSignIn() { return this.localOpenForm === FlowSignIn.name; },
+
+      isOpenSignUp() { return this.localOpenForm === FlowSignUp.name; }
     }
   }
 </script>
-
-<style scoped lang="scss">
-
-</style>

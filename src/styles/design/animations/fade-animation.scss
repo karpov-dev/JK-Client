@@ -1,0 +1,50 @@
+@import "keyframes/fade";
+
+.fade-enter-active {
+  &.animation-fade-in-left {
+    animation-name: fadeInLeft;
+  }
+
+  &.animation-fade-in-right {
+    animation-name: fadeInRight;
+  }
+  &.animation-fade-in-top {
+    animation-name: fadeInTop;
+  }
+  &.animation-fade-in-bottom {
+    animation-name: fadeInBottom;
+  }
+}
+
+.fade-leave-active:not(.animation-disable-leave) {
+  &.animation-fade-out-left {
+    animation-name: fadeOutLeft;
+  }
+
+  &.animation-fade-out-right {
+    animation-name: fadeOutRight;
+  }
+  &.animation-fade-out-top {
+    animation-name: fadeOutTop;
+  }
+  &.animation-fade-out-bottom {
+    animation-name: fadeOutBottom;
+  }
+}
+
+.fade-leave-active:not(.animation-disable-leave),
+.fade-enter-active:not(.animation-disable-enter) {
+  animation-duration: 400ms;
+  animation-fill-mode: both;
+  transition-timing-function: ease-in-out;
+  transition-property: all;
+}
+
+.fade-leave-active.animation-disable-leave,
+.fade-enter-active.animation-disable-enter {
+  display: none;
+}
+
+.animation-disable-leave {}
+
+.animation-disable-enter {}

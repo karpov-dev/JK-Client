@@ -28,14 +28,13 @@
 
   import {ServerApi} from "../../../services/server/ServerApi";
   import {reportValidity} from "../../../services/validation.service";
-  import {CODES as SERVER_ERROR_CODES} from "@jira-killer/error-codes";
+  import {API_ERROR_CODES} from "@jira-killer/constants";
   import {ServerError} from "../../../services/server/ServerError";
-  import {ServerErrorHandler} from "../../../services/server/ServerErrorHandler";
 
   const errorEventByErrorCode = {
-    [SERVER_ERROR_CODES.USER.INACTIVE]: 'on-inactive-user-error',
-    [SERVER_ERROR_CODES.USER.WRONG_PASSWORD]: 'on-wrong-password-error',
-    [SERVER_ERROR_CODES.USER.NOT_FOUND]: 'on-user-not-found'
+    [API_ERROR_CODES.USER.INACTIVE]: 'on-inactive-user-error',
+    [API_ERROR_CODES.USER.WRONG_PASSWORD]: 'on-wrong-password-error',
+    [API_ERROR_CODES.USER.NOT_FOUND]: 'on-user-not-found'
   }
 
   export default {
@@ -67,20 +66,14 @@
         if(!reportValidity([this.$refs.email, this.$refs.password])) return false;
         this.loading(true);
 
-        ServerApi.api.user.signInByPassword.call(this.user.email, this.user.password)
+        ServerApi.api.user.signIn.credentials.call(this.user.email, this.user.password)
             .then(response => this.success(response))
-            .catch(error => this.error(error))
+            .catch(error => ServerError.handleErrorResponse(error, errorEventByErrorCode, this))
             .finally(() => this.loading(false));
       },
 
-      error(error) {
-        const errorCode = ServerError.getErrorCodeByError(error);
-        const handler = ServerErrorHandler.getErrorHandlerByErrorCode(errorCode, errorEventByErrorCode);
-        handler.bind(this)(errorCode, errorEventByErrorCode[errorCode]);
-      },
-
       success(response) {
-        this.$emit('on-success', {response, user: this.user});
+        this.$emit('on-success', response);
       },
 
       loading(state) {

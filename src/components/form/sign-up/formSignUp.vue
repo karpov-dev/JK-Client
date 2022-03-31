@@ -38,10 +38,15 @@
   import UiInputPassword from "../../ui/input/UiInputPassword";
   import UiSelectStandard from "../../ui/input/UiSelectStandard";
   import UiButton from "../../ui/button/UiButton";
+
   import {reportValidity} from "../../../services/validation.service";
   import {ServerApi} from "../../../services/server/ServerApi";
-  import {CODES} from "@jira-killer/error-codes";
-  import {getErrorCode} from "../../../services/http/Http";
+  import {API_ERROR_CODES} from "@jira-killer/constants";
+  import {ServerError} from "../../../services/server/ServerError";
+
+  const errorEventByErrorCode = {
+    [API_ERROR_CODES.USER.DUPLICATE]: 'on-inactive-user-error',
+  }
 
   export default {
     name: "formSignUp",
@@ -77,19 +82,12 @@
 
         ServerApi.api.user.signUp.call(...Object.values(this.user))
             .then(response => this.success(response))
-            .catch(error => this.error(error))
+            .catch(error => ServerError.handleErrorResponse(error, errorEventByErrorCode, this))
             .finally(() => this.loading(false));
       },
 
       success(response) {
-        this.$emit('on-success', {response, user: this.user});
-      },
-
-      error(error) {
-        switch (getErrorCode(error)) {
-          case CODES.USER.DUPLICATE: return this.duplicateError(error);
-          default: return  this.unknownError(error);
-        }
+        this.$emit('on-success', {user: this.user});
       },
 
       duplicateError(error) {

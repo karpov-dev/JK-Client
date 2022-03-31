@@ -2,8 +2,8 @@
   <div class="select-button__container button-color__common button-group__allowed" :data-disabled="disabled">
     <input :id="value"
            :type="type"
-           :value="value"
            :disabled="disabled"
+           :value="value"
            class="select-button__checkmark"
            v-bind="$attrs">
 
@@ -19,6 +19,7 @@
 
   export default {
     name: "UiSelectButton",
+
     props: {
       label: String,
       value: String,

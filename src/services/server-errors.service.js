@@ -1,4 +1,4 @@
-import {ERROR_BY_CODE as getMessageByCode} from "@jira-killer/error-codes";
+import {ERROR_BY_CODE as getMessageByCode} from "@jira-killer/constants";
 import {Notification, NOTIFICATION_VARIANTS} from "./notification/Notification";
 
 const getErrorCodeFromResponse = (error) => {

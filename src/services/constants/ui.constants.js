@@ -25,6 +25,11 @@ const uiConstants = {
     method: {
       email: 'email',
       phone: 'phone'
+    },
+    type: {
+      signInByEmail: 'signInByEmail',
+      activateUser: 'activateUser',
+      checkCode: 'checkCode'
     }
   },
 

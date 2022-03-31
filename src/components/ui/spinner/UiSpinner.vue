@@ -62,7 +62,7 @@
 
   .spinner:after {
     content: "";
-    background-color: black;
+    background-color: var(--color-spinner__background);
     opacity: .5;
   }
 </style>

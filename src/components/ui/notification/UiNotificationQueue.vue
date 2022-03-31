@@ -3,9 +3,12 @@
     <div class="notification-queue__container">
       <transition-group name="fade">
 
-        <div v-for="notification in notificationManager.notifications" :key="notification.id" class="notification-queue__toast-container top-center">
-          <ui-notification :notification="notification" @on-close="this.notificationManager.remove($event.id)"/>
-        </div>
+        <ui-notification v-for="notification in notificationManager.notifications"
+                         :key="notification.id"
+                         :notification="notification"
+                         class="animation-fade-in-top animation-fade-out-top notification-queue__toast-container "
+                         @on-close="this.notificationManager.remove($event.id)"
+        ></ui-notification>
 
       </transition-group>
     </div>
@@ -43,8 +46,6 @@
 </script>
 
 <style scoped lang="scss">
-  @import "src/styles/design/animations/fade";
-
   .notification-queue {
     position: fixed;
     top: 2%;
@@ -61,6 +62,6 @@
   }
 
   .notification-queue__toast-container {
-    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
 </style>

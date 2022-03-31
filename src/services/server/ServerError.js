@@ -1,31 +1,28 @@
-import {ERROR_BY_CODE as getMessageByCode} from "@jira-killer/error-codes/src/constants/error-by-code.constants";
+import {ERROR_BY_CODE} from "@jira-killer/constants";
+import {ServerErrorHandler} from "./ServerErrorHandler";
 
 class ServerError {
-
-  error;
 
   static getErrorCodeByError(error) {
     return error?.response?.data?.code;
   }
 
   static getErrorMessageByCode(code) {
-    return getMessageByCode.get(code)
-      ? getMessageByCode.get(code)
+    return ERROR_BY_CODE.get(code)
+      ? ERROR_BY_CODE.get(code)
       : {title: 'Error', message: 'Code not found'};
   }
 
-  constructor(response) {
-    this.error = response;
-  }
-
-  getErrorCode() {
-    return ServerError.getErrorCodeByError(this.error);
-  }
-
-  getErrorMessage() {
-    const errorCode = this.getErrorCode();
+  static getErrorMessageByError(error) {
+    const errorCode = ServerError.getErrorCodeByError(error);
 
     return ServerError.getErrorMessageByCode(errorCode);
+  }
+
+  static handleErrorResponse(error, errorEventByErrorCode, component) {
+    const errorCode = ServerError.getErrorCodeByError(error);
+    const handler = ServerErrorHandler.getErrorHandlerByErrorCode(errorCode, errorEventByErrorCode);
+    handler.bind(component)(errorCode, errorEventByErrorCode[errorCode]);
   }
 
 }
