@@ -9,9 +9,11 @@
                     @blur="onInputBlur"
     ></ui-input-email>
 
-    <slot name="send-button-section">
-      <ui-button class="button-color__next" @click="onSend">Send</ui-button>
-    </slot>
+    <template v-slot:footer>
+      <slot name="send-button-section">
+        <ui-button class="button-color__next" @click="onSend">Send</ui-button>
+      </slot>
+    </template>
 
   </ui-card-content>
 </template>

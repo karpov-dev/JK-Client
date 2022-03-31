@@ -16,7 +16,10 @@
                        @input="onInput"
     ></ui-input-password>
 
-    <ui-button class="button-color__sign-in" @click="onSignIn">Sign In</ui-button>
+    <template v-slot:footer>
+      <ui-button class="button-color__sign-in" @click="onSignIn">Sign In</ui-button>
+    </template>
+
   </ui-card-content>
 </template>
 

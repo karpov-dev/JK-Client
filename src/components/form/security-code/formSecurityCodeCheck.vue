@@ -7,10 +7,12 @@
                        required="true"
     ></ui-input-password>
 
-    <ui-button-group>
-      <ui-button class="button-color__cancel" @click="onCancel">Cancel</ui-button>
-      <ui-button class="button-color__next" @click="onCheck">Check</ui-button>
-    </ui-button-group>
+    <template v-slot:footer>
+      <ui-button-group>
+        <ui-button class="button-color__cancel" @click="onCancel">Cancel</ui-button>
+        <ui-button class="button-color__next" @click="onCheck">Check</ui-button>
+      </ui-button-group>
+    </template>
 
   </ui-card-content>
 </template>

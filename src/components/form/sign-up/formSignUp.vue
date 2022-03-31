@@ -1,35 +1,40 @@
 <template>
-  <ui-input name="firstName"
-            label="First Name"
-            placeholder="Billie"
-            v-model:value="user.firstName"
-            required="true"
-            ref="firstName"
-  ></ui-input>
+  <ui-card-content>
+    <ui-input name="firstName"
+              label="First Name"
+              placeholder="Billie"
+              v-model:value="user.firstName"
+              required="true"
+              ref="firstName"
+    ></ui-input>
 
-  <ui-input name="lastName"
-            label="Last Name"
-            placeholder="Armstrong"
-            v-model:value="user.lastName"
-            required="true"
-            ref="lastName"
-  ></ui-input>
+    <ui-input name="lastName"
+              label="Last Name"
+              placeholder="Armstrong"
+              v-model:value="user.lastName"
+              required="true"
+              ref="lastName"
+    ></ui-input>
 
-  <ui-input-email name="email"
-                  label="Email"
-                  v-model:value="user.email"
-                  required="true"
-                  ref="email"
-  ></ui-input-email>
+    <ui-input-email name="email"
+                    label="Email"
+                    v-model:value="user.email"
+                    required="true"
+                    ref="email"
+    ></ui-input-email>
 
-  <ui-input-password name="password"
-                     label="Password"
-                     v-model:value="user.password"
-                     required="true"
-                     ref="password"
-  ></ui-input-password>
+    <ui-input-password name="password"
+                       label="Password"
+                       v-model:value="user.password"
+                       required="true"
+                       ref="password"
+    ></ui-input-password>
 
-  <ui-button class="button-color__success" @click="onSignUp">Sign Up</ui-button>
+    <template v-slot:footer>
+      <ui-button class="button-color__success" @click="onSignUp">Sign Up</ui-button>
+    </template>
+
+  </ui-card-content>
 </template>
 
 <script>
@@ -43,6 +48,7 @@
   import {ServerApi} from "../../../services/server/ServerApi";
   import {API_ERROR_CODES} from "@jira-killer/constants";
   import {ServerError} from "../../../services/server/ServerError";
+  import UiCardContent from "../../ui/card/UiCardContent";
 
   const errorEventByErrorCode = {
     [API_ERROR_CODES.USER.DUPLICATE]: 'on-inactive-user-error',
@@ -52,6 +58,7 @@
     name: "formSignUp",
 
     components: {
+      UiCardContent,
       UiButton,
       UiSelectStandard,
       UiInputPassword,
