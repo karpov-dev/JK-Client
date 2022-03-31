@@ -1,8 +1,23 @@
 <template>
   <ui-card>
-    <div class="card-content">
-      <slot></slot>
-    </div>
+    <template v-slot:header>
+      <div class="card-content__header">
+        <slot name="header"></slot>
+      </div>
+    </template>
+
+    <template v-slot:default>
+      <div class="card-content__content">
+        <slot></slot>
+      </div>
+    </template>
+
+    <template v-slot:footer>
+      <div class="card-content__footer">
+        <slot name="footer"></slot>
+      </div>
+    </template>
+
   </ui-card>
 </template>
 
