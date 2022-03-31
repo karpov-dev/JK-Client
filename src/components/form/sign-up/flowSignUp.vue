@@ -1,31 +1,41 @@
 <template>
-  <ui-card-form v-if="isOpenSignUp"
-                title="Sign Up">
+  <transition name="fade">
+    <ui-card-form v-if="isOpenSignUp"
+                  class="animation-fade-in-left animation-disable-leave"
+                  title="Sign Up">
 
-    <template v-slot:description>
-      <label>Already have an account? </label>
-      <a href="javascript:void(0);" @click="onToSignIn">Sign In</a>
-    </template>
+      <template v-slot:description>
+        <label>Already have an account? </label>
+        <a href="javascript:void(0);" @click="onToSignIn">Sign In</a>
+      </template>
 
-    <form-sign-up @on-success="onSignUpSuccess"
-                  @on-failed="onSignUpFailed"
-                  @on-server-error="onServerError"
-                  @on-loading="onLoading"
-    ></form-sign-up>
+      <form-sign-up @on-success="onSignUpSuccess"
+                    @on-failed="onSignUpFailed"
+                    @on-server-error="onServerError"
+                    @on-loading="onLoading"
+      ></form-sign-up>
 
-    <ui-spinner :is-show="isLoading"></ui-spinner>
-  </ui-card-form>
+      <ui-spinner :is-show="isLoading"></ui-spinner>
+    </ui-card-form>
+  </transition>
 
-  <ui-card-form v-if="isOpenCheckCode">
-    <form-security-code-check :email="user.email"
-                              :type="CODE_TYPE.USER_ACTIVATION"
-                              @on-success="onCheckCodeSuccess"
-                              @on-failed="onSignUpFailed"
-                              @on-cancel="onCheckCodeCancel"
-                              @on-server-error="onServerError"
-                              @on-loading="onLoading"
-    ></form-security-code-check>
-  </ui-card-form>
+
+  <transition name="fade">
+    <ui-card-form v-if="isOpenCheckCode"
+                  class="animation-fade-in-right animation-disable-leave"
+                  title="Checking the security code"
+                  description="We have sent the security code to your email address">
+
+      <form-security-code-check :email="user.email"
+                                :type="CODE_TYPE.USER_ACTIVATION"
+                                @on-success="onCheckCodeSuccess"
+                                @on-failed="onSignUpFailed"
+                                @on-cancel="onCheckCodeCancel"
+                                @on-server-error="onServerError"
+                                @on-loading="onLoading"
+      ></form-security-code-check>
+    </ui-card-form>
+  </transition>
 </template>
 
 <script>
